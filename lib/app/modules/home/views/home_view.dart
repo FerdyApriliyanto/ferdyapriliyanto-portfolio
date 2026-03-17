@@ -15,7 +15,6 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final isMobile = width < 760;
-    final isCompactNav = width < 920;
 
     return Scaffold(
       body: DecoratedBox(
@@ -42,7 +41,6 @@ class HomeView extends GetView<HomeController> {
               child: Column(
                 children: [
                   _TopNavigation(
-                    isMobile: isCompactNav,
                     onTapHero: () => controller.scrollTo(controller.heroKey),
                     onTapProjects: () =>
                         controller.scrollTo(controller.projectsKey),
@@ -102,21 +100,27 @@ class HomeView extends GetView<HomeController> {
 
 // ── Navigation Bar ────────────────────────────────────────────────────────────
 
-class _TopNavigation extends StatelessWidget {
+class _TopNavigation extends StatefulWidget {
   const _TopNavigation({
-    required this.isMobile,
     required this.onTapHero,
     required this.onTapProjects,
     required this.onTapContact,
   });
 
-  final bool isMobile;
   final VoidCallback onTapHero;
   final VoidCallback onTapProjects;
   final VoidCallback onTapContact;
 
   @override
+  State<_TopNavigation> createState() => _TopNavigationState();
+}
+
+class _TopNavigationState extends State<_TopNavigation> {
+  @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final isMobile = width < 920;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(
         isMobile ? 20 : 36,
@@ -152,9 +156,21 @@ class _TopNavigation extends StatelessWidget {
           ),
           const Spacer(),
           if (!isMobile) ...[
-            _NavButton(label: 'Home', onTap: onTapHero),
-            _NavButton(label: 'Experience', onTap: onTapProjects),
-            _NavButton(label: 'Contact', onTap: onTapContact),
+            _NavButton(
+              key: const ValueKey('nav_home'),
+              label: 'Home',
+              onTap: widget.onTapHero,
+            ),
+            _NavButton(
+              key: const ValueKey('nav_experience'),
+              label: 'Experience',
+              onTap: widget.onTapProjects,
+            ),
+            _NavButton(
+              key: const ValueKey('nav_contact'),
+              label: 'Contact',
+              onTap: widget.onTapContact,
+            ),
             const SizedBox(width: 16),
           ],
           Container(
@@ -188,7 +204,7 @@ class _TopNavigation extends StatelessWidget {
 // ── Nav Button ────────────────────────────────────────────────────────────────
 
 class _NavButton extends StatefulWidget {
-  const _NavButton({required this.label, required this.onTap});
+  const _NavButton({required this.label, required this.onTap, super.key});
 
   final String label;
   final VoidCallback onTap;
@@ -207,20 +223,19 @@ class _NavButtonState extends State<_NavButton> {
       onExit: (_) => setState(() => _hovering = false),
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
+        child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 6),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            color: _hovering ? const Color(0xFFFFFFFF) : Colors.transparent,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Text(
-            widget.label,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF353535),
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: _hovering
+                  ? const Color(0xFFAAAAAA)
+                  : const Color(0xFF353535),
               fontWeight: FontWeight.w600,
             ),
+            child: Text(widget.label),
           ),
         ),
       ),

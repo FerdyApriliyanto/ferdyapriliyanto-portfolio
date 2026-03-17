@@ -18,6 +18,15 @@ class HomeController extends GetxController {
           'Built key features for the HiredToday recruitment platform, integrated REST APIs with GetX state management, and collaborated across teams to ship scalable production-ready mobile solutions.',
       accent: Color(0xFFDDE6F0),
       icon: Icons.work_outline,
+      screenshots: [
+        'assets/hired_today/hiredtoday_onboarding.png',
+        'assets/hired_today/hiredtoday_login.png',
+        'assets/hired_today/hiredtoday_home.png',
+        'assets/hired_today/hiredtoday_searchjob.png',
+        'assets/hired_today/hiredtoday_jobdetail.png',
+        'assets/hired_today/hiredtoday_applyjob.png',
+        'assets/hired_today/hiredtoday_profile.png',
+      ],
     ),
     PortfolioProject(
       title: 'PT Suitmedia Kreasi Indonesia',
@@ -105,7 +114,7 @@ class HomeController extends GetxController {
   }
 }
 
-// ── Data Models ──────────────────────────────────────────────────────────────
+// ── Data Models ───────────────────────────────────────────────────────────────
 
 class PortfolioProject {
   const PortfolioProject({
@@ -115,6 +124,7 @@ class PortfolioProject {
     required this.description,
     required this.accent,
     required this.icon,
+    this.screenshots = const [],
   });
 
   final String title;
@@ -123,6 +133,7 @@ class PortfolioProject {
   final String description;
   final Color accent;
   final IconData icon;
+  final List<String> screenshots;
 }
 
 class PortfolioSkill {
