@@ -6,11 +6,15 @@ import 'package:personal_portfolio/app/models/portfolio_skill.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
+  final RxBool isMenuOpen = false.obs;
 
   final GlobalKey heroKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
   final GlobalKey skillsKey = GlobalKey();
   final GlobalKey contactKey = GlobalKey();
+
+  void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;
+  void closeMenu() => isMenuOpen.value = false;
 
   final List<PortfolioProject> projects = const [
     PortfolioProject(
@@ -99,6 +103,7 @@ class HomeController extends GetxController {
   ];
 
   Future<void> scrollTo(GlobalKey key) async {
+    closeMenu();
     final context = key.currentContext;
     if (context == null) return;
 
