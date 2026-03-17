@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_portfolio/app/models/contact_link.dart';
+import 'package:personal_portfolio/app/models/portfolio_project.dart';
+import 'package:personal_portfolio/app/models/portfolio_skill.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -112,50 +115,4 @@ class HomeController extends GetxController {
     scrollController.dispose();
     super.onClose();
   }
-}
-
-// ── Data Models ───────────────────────────────────────────────────────────────
-
-class PortfolioProject {
-  const PortfolioProject({
-    required this.title,
-    required this.subtitle,
-    required this.period,
-    required this.description,
-    required this.accent,
-    required this.icon,
-    this.screenshots = const [],
-  });
-
-  final String title;
-  final String subtitle;
-  final String period;
-  final String description;
-  final Color accent;
-  final IconData icon;
-  final List<String> screenshots;
-}
-
-class PortfolioSkill {
-  const PortfolioSkill({
-    required this.title,
-    required this.description,
-    required this.icon,
-  });
-
-  final String title;
-  final String description;
-  final IconData icon;
-}
-
-class ContactLink {
-  const ContactLink({
-    required this.label,
-    required this.value,
-    required this.href,
-  });
-
-  final String label;
-  final String value;
-  final String href;
 }

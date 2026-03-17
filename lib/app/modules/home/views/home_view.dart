@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/contact_section.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/hero_section.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/projects_section.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/section_shell.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/skills_section.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/sections/contact_section.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/sections/hero_section.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/sections/projects_section.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/shared/section_shell.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/sections/skills_section.dart';
 
 import '../controllers/home_controller.dart';
 

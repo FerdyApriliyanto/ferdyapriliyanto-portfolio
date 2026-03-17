@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'section_title.dart';
+import '../shared/section_title.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
