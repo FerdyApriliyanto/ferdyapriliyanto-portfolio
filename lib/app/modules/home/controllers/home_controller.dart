@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:personal_portfolio/app/models/contact_link.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/models/portfolio_skill.dart';
+import 'package:personal_portfolio/app/services/url_service.dart';
 
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -12,9 +13,7 @@ class HomeController extends GetxController {
   final GlobalKey projectsKey = GlobalKey();
   final GlobalKey skillsKey = GlobalKey();
   final GlobalKey contactKey = GlobalKey();
-
-  void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;
-  void closeMenu() => isMenuOpen.value = false;
+  final GlobalKey footerKey = GlobalKey();
 
   final List<PortfolioProject> projects = const [
     PortfolioProject(
@@ -102,6 +101,9 @@ class HomeController extends GetxController {
     ContactLink(label: 'Location', value: 'Jakarta, Indonesia', href: ''),
   ];
 
+  void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;
+  void closeMenu() => isMenuOpen.value = false;
+
   Future<void> scrollTo(GlobalKey key) async {
     closeMenu();
     final context = key.currentContext;
@@ -113,6 +115,14 @@ class HomeController extends GetxController {
       curve: Curves.easeInOutCubic,
       alignment: 0.08,
     );
+  }
+
+  Future<void> openUrl(String url) async {
+    try {
+      await UrlService.open(url);
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to open link');
+    }
   }
 
   @override

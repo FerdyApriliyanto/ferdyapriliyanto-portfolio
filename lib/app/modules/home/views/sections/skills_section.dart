@@ -22,7 +22,7 @@ class SkillsSection extends StatelessWidget {
             eyebrow: 'Skills',
             title: 'Core technologies used in daily Flutter development.',
             description:
-                'Technical strengths from your CV, covering implementation, integrations, state management, and team workflow tooling.',
+                'A selection of technologies I use to build, integrate, and deliver scalable mobile applications.',
           ),
           const SizedBox(height: 28),
           Wrap(

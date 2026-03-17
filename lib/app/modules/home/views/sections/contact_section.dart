@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:personal_portfolio/app/models/contact_link.dart';
+import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
 
 import '../../widgets/shared/portfolio_button.dart';
 import '../../widgets/shared/section_title.dart';
 
 class ContactSection extends StatelessWidget {
-  const ContactSection({required this.contacts, super.key});
+  final controller = Get.find<HomeController>();
+
+  ContactSection({required this.contacts, super.key});
 
   final List<ContactLink> contacts;
 
@@ -53,7 +58,9 @@ class ContactSection extends StatelessWidget {
           PortfolioButton(
             label: 'Start a Conversation',
             primary: true,
-            onTap: () {},
+            onTap: () => controller.openUrl(
+              'mailto:ferdya7414@gmail.com?subject=Project Inquiry&body=Hi Ferdy, I would like to discuss...',
+            ),
           ),
         ],
       ),

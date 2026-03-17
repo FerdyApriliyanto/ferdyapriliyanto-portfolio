@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_portfolio/app/modules/home/views/sections/footer_section.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/nav/mobile_menu.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/nav/top_navigation.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/contact_section.dart';
@@ -85,6 +86,10 @@ class HomeView extends GetView<HomeController> {
                             child: ContactSection(
                               contacts: controller.contacts,
                             ),
+                          ),
+                          SectionShell(
+                            sectionKey: controller.footerKey,
+                            child: FooterSection(),
                           ),
                         ],
                       ),
