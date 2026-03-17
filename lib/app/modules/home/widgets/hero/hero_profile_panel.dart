@@ -42,7 +42,7 @@ class HeroProfilePanel extends StatelessWidget {
           const SizedBox(height: 22),
           const _MetricRow(label: 'Experience', value: '3+ years'),
           const SizedBox(height: 14),
-          const _MetricRow(label: 'Core stack', value: 'Flutter, GetX, Bloc'),
+          const _MetricRow(label: 'Core stack', value: 'Flutter, GetX, Firebase'),
           const SizedBox(height: 14),
           const _MetricRow(label: 'Focus', value: 'Production mobile apps'),
         ],

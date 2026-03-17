@@ -73,10 +73,8 @@ class _FeaturedCardDesktop extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 320,
-          height: 420,
-          child: ScreenshotStrip(project: project),
+        Expanded(
+          child: SizedBox(child: ScreenshotStrip(project: project)),
         ),
         const SizedBox(width: 28),
         Expanded(child: _FeaturedCardInfo(project: project)),

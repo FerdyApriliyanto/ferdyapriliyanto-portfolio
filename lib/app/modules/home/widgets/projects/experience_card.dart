@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/projects/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
 
 class ExperienceCard extends StatefulWidget {
@@ -142,6 +143,10 @@ class _ExperienceCardState extends State<ExperienceCard> {
                 ),
               ),
             ),
+            if (project.screenshots.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              ScreenshotStrip(project: project),
+            ],
           ],
         ),
       ),

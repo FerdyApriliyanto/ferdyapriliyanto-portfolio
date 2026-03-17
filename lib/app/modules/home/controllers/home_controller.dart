@@ -42,6 +42,13 @@ class HomeController extends GetxController {
           'Developed core features for the Teman Muslim production superapp, integrated REST APIs, applied GetX for efficient state handling, and collaborated using GitLab workflows.',
       accent: Color(0xFFD8E7DE),
       icon: Icons.mobile_friendly_outlined,
+      screenshots: [
+        'assets/teman_muslim/temanmuslim_home.webp',
+        'assets/teman_muslim/temanmuslim_alquran.webp',
+        'assets/teman_muslim/temanmuslim_sholat.webp',
+        'assets/teman_muslim/temanmuslim_fatwa.webp',
+        'assets/teman_muslim/temanmuslim_haji_umroh.webp',
+      ],
     ),
     PortfolioProject(
       title: 'Alterra Academy',
@@ -51,6 +58,12 @@ class HomeController extends GetxController {
           'Built RecyThing, an environmental mobile app using Flutter with Bloc/Cubit architecture, a gamified mission system, backend integrations, and GitHub-based version control.',
       accent: Color(0xFFE9E2D7),
       icon: Icons.eco_outlined,
+      screenshots: [
+        'assets/recything/recything.jpg',
+        'assets/recything/recything_introduction.jpg',
+        'assets/recything/recything_core_features.jpg',
+      ],
+      screenshotType: ScreenshotType.landscape
     ),
   ];
 
