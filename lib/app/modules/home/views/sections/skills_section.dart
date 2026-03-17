@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_skill.dart';
 
-import '../shared/section_title.dart';
+import '../../widgets/shared/section_title.dart';
 
 class SkillsSection extends StatelessWidget {
   const SkillsSection({required this.skills, super.key});

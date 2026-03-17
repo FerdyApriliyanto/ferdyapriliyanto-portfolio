@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/contact_link.dart';
 
-import '../shared/portfolio_button.dart';
-import '../shared/section_title.dart';
+import '../../widgets/shared/portfolio_button.dart';
+import '../../widgets/shared/section_title.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({required this.contacts, super.key});

@@ -3,7 +3,7 @@ import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/projects/experience_card.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/projects/featured_experience_card.dart';
 
-import '../shared/section_title.dart';
+import '../../widgets/shared/section_title.dart';
 
 class ProjectsSection extends StatelessWidget {
   const ProjectsSection({required this.projects, super.key});
