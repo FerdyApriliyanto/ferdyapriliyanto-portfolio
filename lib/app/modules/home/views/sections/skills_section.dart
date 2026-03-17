@@ -58,52 +58,54 @@ class _SkillCardState extends State<_SkillCard> {
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
+      child: SizedBox(
         width: widget.isMobile ? double.infinity : 360,
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: const Color(0xFFEEEAE3)),
-          boxShadow: _hovering
-              ? const [
-                  BoxShadow(
-                    color: Color(0x10000000),
-                    blurRadius: 24,
-                    offset: Offset(0, 12),
-                  ),
-                ]
-              : const [],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.circular(18),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFFFFF),
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: const Color(0xFFEEEAE3)),
+            boxShadow: _hovering
+                ? const [
+                    BoxShadow(
+                      color: Color(0x10000000),
+                      blurRadius: 24,
+                      offset: Offset(0, 12),
+                    ),
+                  ]
+                : const [],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Icon(widget.skill.icon, color: const Color(0xFF2D2D2D)),
               ),
-              child: Icon(widget.skill.icon, color: const Color(0xFF2D2D2D)),
-            ),
-            const SizedBox(height: 18),
-            Text(
-              widget.skill.title,
-              style: textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFF1F1F1F),
+              const SizedBox(height: 18),
+              Text(
+                widget.skill.title,
+                style: textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF1F1F1F),
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.skill.description,
-              style: textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFF67635F),
-                height: 1.65,
+              const SizedBox(height: 10),
+              Text(
+                widget.skill.description,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: const Color(0xFF67635F),
+                  height: 1.65,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
