@@ -20,21 +20,21 @@ class CarouselButton extends StatelessWidget {
         duration: const Duration(milliseconds: 150),
         opacity: onTap != null ? 1.0 : 0.28,
         child: Container(
-          width: 34,
-          height: 34,
+          width: 28,
+          height: 28,
           decoration: BoxDecoration(
             color: tinted
                 ? Colors.white.withValues(alpha: 0.7)
-                : const Color(0xFFFFFFFF),
+                : const Color(0xFFE8E3DC),
             borderRadius: BorderRadius.circular(999),
             border: Border.all(
               color: tinted
                   ? Colors.white.withValues(alpha: 0.5)
-                  : const Color(0xFFE2DDD7),
+                  : const Color(0xFFB5AFA7),
             ),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x0A000000),
+                color: Color(0x14000000),
                 blurRadius: 8,
                 offset: Offset(0, 2),
               ),
@@ -59,14 +59,16 @@ class DotIndicator extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       margin: const EdgeInsets.symmetric(horizontal: 3),
-      width: active ? 18 : 6,
-      height: 6,
+      width: active ? 16 : 6,
+      height: 4,
       decoration: BoxDecoration(
         color: active
-            ? (tinted ? Colors.white : const Color(0xFF2D2D2D))
+            ? (tinted
+                  ? Color(0xFF1E1E1E).withValues(alpha: 0.90)
+                  : const Color(0xFF2D2D2D))
             : (tinted
-                  ? Colors.white.withValues(alpha: 0.4)
-                  : const Color(0xFFD5D0CA)),
+                  ? Color(0xFF1E1E1E).withValues(alpha: 0.24)
+                  : const Color(0xFF7D7870)),
         borderRadius: BorderRadius.circular(999),
       ),
     );

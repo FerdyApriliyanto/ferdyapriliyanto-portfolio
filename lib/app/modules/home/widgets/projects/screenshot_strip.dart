@@ -50,43 +50,60 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         children: [
-          Expanded(
-            child: ClipRect(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: _StripPhone(
-                      assetPath: screenshots[prev],
-                      heightFactor: 0.82,
-                      onTap: () => _openLightbox(context, prev),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final availableWidth = (constraints.maxWidth - 16) / 3;
+              final centerHeight = (availableWidth * 2.1).clamp(
+                0.0,
+                constraints.maxHeight,
+              );
+              final sideHeight = centerHeight * 0.82;
+              final offset = (centerHeight - sideHeight) / 2;
+
+              return Align(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Transform.translate(
+                        offset: Offset(0, offset),
+                        child: _StripPhone(
+                          assetPath: screenshots[prev],
+                          height: sideHeight,
+                          onTap: () => _openLightbox(context, prev),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: _StripPhone(
-                      assetPath: screenshots[_current],
-                      heightFactor: 1.0,
-                      isCenter: true,
-                      onTap: () => _openLightbox(context, _current),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: _StripPhone(
+                        assetPath: screenshots[_current],
+                        height: centerHeight,
+                        isCenter: true,
+                        onTap: () => _openLightbox(context, _current),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: _StripPhone(
-                      assetPath: screenshots[next],
-                      heightFactor: 0.82,
-                      onTap: () => _openLightbox(context, next),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Transform.translate(
+                        offset: Offset(0, offset),
+                        child: _StripPhone(
+                          assetPath: screenshots[next],
+                          height: sideHeight,
+                          onTap: () => _openLightbox(context, next),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -118,13 +135,13 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
 class _StripPhone extends StatefulWidget {
   const _StripPhone({
     required this.assetPath,
-    required this.heightFactor,
+    required this.height,
     required this.onTap,
     this.isCenter = false,
   });
 
   final String assetPath;
-  final double heightFactor;
+  final double height;
   final VoidCallback onTap;
   final bool isCenter;
 
@@ -145,8 +162,6 @@ class _StripPhoneState extends State<_StripPhone> {
         onTap: widget.onTap,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final w = constraints.maxWidth;
-            final h = w * 2.1 * widget.heightFactor;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeOut,
@@ -155,8 +170,8 @@ class _StripPhoneState extends State<_StripPhone> {
               child: PhoneMockup(
                 key: ValueKey(widget.assetPath),
                 assetPath: widget.assetPath,
-                width: w,
-                height: h,
+                width: constraints.maxWidth,
+                height: widget.height,
                 lightBackground: true,
               ),
             );
