@@ -18,6 +18,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final isMobile = width < 760;
+    final topInset = isMobile ? 104.0 : 120.0;
 
     return Scaffold(
       body: DecoratedBox(
@@ -41,19 +42,15 @@ class HomeView extends GetView<HomeController> {
               child: _AmbientGlow(color: Color(0x16EEE8DE), size: 260),
             ),
             SafeArea(
-              child: Column(
+              child: Stack(
                 children: [
-                  TopNavigation(
-                    onTapHero: () => controller.scrollTo(controller.heroKey),
-                    onTapProjects: () =>
-                        controller.scrollTo(controller.projectsKey),
-                    onTapContact: () =>
-                        controller.scrollTo(controller.contactKey),
-                  ),
-                  Expanded(
+                  Positioned.fill(
                     child: SingleChildScrollView(
                       controller: controller.scrollController,
-                      padding: EdgeInsets.only(bottom: isMobile ? 48 : 72),
+                      padding: EdgeInsets.only(
+                        top: topInset,
+                        bottom: isMobile ? 48 : 72,
+                      ),
                       child: Column(
                         children: [
                           SectionShell(
@@ -93,6 +90,18 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: TopNavigation(
+                      onTapHero: () => controller.scrollTo(controller.heroKey),
+                      onTapProjects: () =>
+                          controller.scrollTo(controller.projectsKey),
+                      onTapContact: () =>
+                          controller.scrollTo(controller.contactKey),
                     ),
                   ),
                 ],

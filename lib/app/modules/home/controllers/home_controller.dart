@@ -8,6 +8,8 @@ import 'package:personal_portfolio/app/services/url_service.dart';
 class HomeController extends GetxController {
   final ScrollController scrollController = ScrollController();
   final RxBool isMenuOpen = false.obs;
+  final RxBool isScrolled = false.obs;
+  final RxString activeSection = 'home'.obs;
 
   final GlobalKey heroKey = GlobalKey();
   final GlobalKey projectsKey = GlobalKey();
@@ -117,6 +119,48 @@ class HomeController extends GetxController {
   void toggleMenu() => isMenuOpen.value = !isMenuOpen.value;
   void closeMenu() => isMenuOpen.value = false;
 
+  void _handleScroll() {
+    isScrolled.value = scrollController.hasClients && scrollController.offset > 16;
+    _updateActiveSection();
+  }
+
+  void _updateActiveSection() {
+    final sections = <String, GlobalKey>{
+      'home': heroKey,
+      'experience': projectsKey,
+      'contact': contactKey,
+    };
+
+    const activationLine = 180.0;
+    String? candidate;
+    double? nearestDistance;
+
+    for (final entry in sections.entries) {
+      final context = entry.value.currentContext;
+      if (context == null) continue;
+
+      final box = context.findRenderObject() as RenderBox?;
+      if (box == null || !box.attached) continue;
+
+      final top = box.localToGlobal(Offset.zero).dy;
+
+      if (top <= activationLine) {
+        candidate = entry.key;
+      } else {
+        final distance = top - activationLine;
+        if (candidate == null &&
+            (nearestDistance == null || distance < nearestDistance)) {
+          nearestDistance = distance;
+          candidate = entry.key;
+        }
+      }
+    }
+
+    if (candidate != null && candidate != activeSection.value) {
+      activeSection.value = candidate;
+    }
+  }
+
   Future<void> scrollTo(GlobalKey key) async {
     closeMenu();
     final context = key.currentContext;
@@ -128,6 +172,8 @@ class HomeController extends GetxController {
       curve: Curves.easeInOutCubic,
       alignment: 0.08,
     );
+
+    _updateActiveSection();
   }
 
   Future<void> openUrl(String url) async {
@@ -142,5 +188,18 @@ class HomeController extends GetxController {
   void onClose() {
     scrollController.dispose();
     super.onClose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    scrollController.addListener(_handleScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _handleScroll());
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _handleScroll());
   }
 }
