@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
+import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/projects/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
 
@@ -147,117 +150,137 @@ class _FeaturedCardInfo extends StatelessWidget {
     final screenshotLabel = project.screenshotType == ScreenshotType.landscape
         ? 'Landscape showcase'
         : 'Mobile flows';
+    final hasGooglePlayUrl = project.externalUrl.trim().isNotEmpty;
+    final hasAppStoreUrl = project.secondaryExternalUrl.trim().isNotEmpty;
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final useSplitCtas = constraints.maxWidth >= 520;
+
+        return Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionToken(label: '01', dark: true),
-              if (featured) ...[
-                const SizedBox(width: 10),
-                _MicroBadge(
-                  icon: Icons.workspace_premium_outlined,
-                  label: 'Featured Build',
-                ),
-              ],
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            project.title,
-            style: textTheme.headlineSmall?.copyWith(
-              color: const Color(0xFF1D1D1D),
-              fontWeight: FontWeight.w700,
-              height: 1.15,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            project.subtitle,
-            style: textTheme.titleSmall?.copyWith(
-              color: const Color(0xFF5D5954),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: [
-              _InfoChip(
-                label: project.period,
-                icon: Icons.schedule_outlined,
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  const SectionToken(label: '01', dark: true),
+                  if (featured)
+                    _MicroBadge(
+                      icon: Icons.workspace_premium_outlined,
+                      label: 'Featured Build',
+                    ),
+                ],
               ),
-              _InfoChip(
-                label: screenshotLabel,
-                icon: Icons.photo_library_outlined,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            project.description,
-            style: textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF5F5A55),
-              height: 1.75,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.all(compact ? 14 : 16),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF9F8F5),
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(color: const Color(0xFFEFEBE4)),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Icon(
-                    Icons.auto_awesome_outlined,
-                    size: 18,
-                    color: Color(0xFF2E2E2E),
-                  ),
+              const SizedBox(height: 26),
+              Text(
+                project.title,
+                style: textTheme.headlineMedium?.copyWith(
+                  color: const Color(0xFF1D1D1D),
+                  fontWeight: FontWeight.w700,
+                  height: 1.05,
+                  letterSpacing: -0.8,
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                project.subtitle,
+                style: textTheme.titleMedium?.copyWith(
+                  color: const Color(0xFF5D5954),
+                  fontWeight: FontWeight.w600,
+                  height: 1.3,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  _InfoChip(
+                    label: project.period,
+                    icon: Icons.schedule_outlined,
+                  ),
+                  _InfoChip(
+                    label: screenshotLabel,
+                    icon: Icons.photo_library_outlined,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Text(
+                project.description,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: const Color(0xFF5F5A55),
+                  height: 1.72,
+                ),
+              ),
+              if (hasGooglePlayUrl || hasAppStoreUrl) ...[
+                const SizedBox(height: 28),
+                if (useSplitCtas && hasGooglePlayUrl && hasAppStoreUrl)
+                  Row(
                     children: [
-                      Text(
-                        'Delivery Snapshot',
-                        style: textTheme.titleSmall?.copyWith(
-                          color: const Color(0xFF2A2824),
-                          fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: _StoreButton(
+                          appName: project.title,
+                          label: project.externalLabel,
+                          variant: _StoreButtonVariant.googlePlay,
+                          icon: FontAwesomeIcons.googlePlay,
+                          fillWidth: true,
+                          onTap: () => Get.find<HomeController>().openUrl(
+                            project.externalUrl,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Focused on scalable delivery, API-connected flows, and production-ready mobile feature rollout.',
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: const Color(0xFF5F5A55),
-                          height: 1.65,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _StoreButton(
+                          appName: project.title,
+                          label: project.secondaryExternalLabel,
+                          variant: _StoreButtonVariant.appStore,
+                          icon: FontAwesomeIcons.appStoreIos,
+                          fillWidth: true,
+                          onTap: () => Get.find<HomeController>().openUrl(
+                            project.secondaryExternalUrl,
+                          ),
                         ),
                       ),
                     ],
+                  )
+                else
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: [
+                      if (hasGooglePlayUrl)
+                        _StoreButton(
+                          appName: project.title,
+                          label: project.externalLabel,
+                          variant: _StoreButtonVariant.googlePlay,
+                          icon: FontAwesomeIcons.googlePlay,
+                          onTap: () => Get.find<HomeController>().openUrl(
+                            project.externalUrl,
+                          ),
+                        ),
+                      if (hasAppStoreUrl)
+                        _StoreButton(
+                          appName: project.title,
+                          label: project.secondaryExternalLabel,
+                          variant: _StoreButtonVariant.appStore,
+                          icon: FontAwesomeIcons.appStoreIos,
+                          onTap: () => Get.find<HomeController>().openUrl(
+                            project.secondaryExternalUrl,
+                          ),
+                        ),
+                    ],
                   ),
-                ),
               ],
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -327,6 +350,163 @@ class _MicroBadge extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+enum _StoreButtonVariant { googlePlay, appStore }
+
+class _StoreButton extends StatefulWidget {
+  const _StoreButton({
+    required this.appName,
+    required this.label,
+    required this.variant,
+    required this.icon,
+    required this.onTap,
+    this.fillWidth = false,
+  });
+
+  final String appName;
+  final String label;
+  final _StoreButtonVariant variant;
+  final FaIconData icon;
+  final VoidCallback onTap;
+  final bool fillWidth;
+
+  @override
+  State<_StoreButton> createState() => _StoreButtonState();
+}
+
+class _StoreButtonState extends State<_StoreButton> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final isGooglePlay = widget.variant == _StoreButtonVariant.googlePlay;
+    final gradientColors = isGooglePlay
+        ? (_hovering
+            ? const [Color(0xFFFFFFFF), Color(0xFFF1EEE8)]
+            : const [Color(0xFFFFFEFC), Color(0xFFF5F1EB)])
+        : (_hovering
+            ? const [Color(0xFF1D1D1D), Color(0xFF343434)]
+            : const [Color(0xFF242424), Color(0xFF3A3A3A)]);
+    final borderColor = isGooglePlay
+        ? const Color(0xFFD9D1C6).withValues(alpha: _hovering ? 0.96 : 0.86)
+        : const Color(0xFFE5DED5).withValues(alpha: _hovering ? 0.18 : 0.1);
+    final iconSurfaceColor = isGooglePlay
+        ? const Color(0xFFF1ECE5)
+        : const Color(0xFFFFFFFF).withValues(alpha: _hovering ? 0.16 : 0.1);
+    final iconBorderColor = isGooglePlay
+        ? const Color(0xFFD9D1C7)
+        : const Color(0xFFFFFFFF).withValues(alpha: _hovering ? 0.2 : 0.12);
+    final iconColor =
+        isGooglePlay ? const Color(0xFF353532) : const Color(0xFFF6F3EF);
+    final caption = isGooglePlay ? 'Google Play' : 'App Store';
+    final textColor =
+        isGooglePlay ? const Color(0xFF2F312E) : const Color(0xFFFFFFFF);
+    final captionColor = isGooglePlay
+        ? const Color(0xFF66615B)
+        : Colors.white.withValues(alpha: 0.78);
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOutCubic,
+          width: widget.fillWidth ? double.infinity : null,
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: gradientColors,
+            ),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: borderColor),
+            boxShadow: _hovering
+                ? [
+                    BoxShadow(
+                      color: isGooglePlay
+                          ? const Color(0x12C9C0B6)
+                          : const Color(0x14000000),
+                      blurRadius: 22,
+                      offset: const Offset(0, 12),
+                    ),
+                  ]
+                : const [],
+          ),
+          child: Row(
+            mainAxisSize:
+                widget.fillWidth ? MainAxisSize.max : MainAxisSize.min,
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  color: iconSurfaceColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: iconBorderColor,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: FaIcon(
+                  widget.icon,
+                  size: 16,
+                  color: iconColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      caption,
+                      strutStyle: const StrutStyle(
+                        forceStrutHeight: true,
+                        height: 1.2,
+                      ),
+                      style: textTheme.labelSmall?.copyWith(
+                        color: captionColor,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.2,
+                        height: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      widget.label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      strutStyle: const StrutStyle(
+                        forceStrutHeight: true,
+                        height: 1.2,
+                      ),
+                      style: textTheme.titleMedium?.copyWith(
+                        color: textColor,
+                        fontWeight: FontWeight.w700,
+                        height: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Icon(
+                Icons.open_in_new_rounded,
+                size: 18,
+                color: isGooglePlay ? const Color(0xFF3B3A37) : Colors.white,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

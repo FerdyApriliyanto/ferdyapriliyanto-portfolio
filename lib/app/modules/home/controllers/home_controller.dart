@@ -19,8 +19,30 @@ class HomeController extends GetxController {
 
   final List<PortfolioProject> projects = const [
     PortfolioProject(
-      title: 'PT Ponseljobs Indonesia',
-      subtitle: 'Mobile Developer',
+      title: 'Teman Muslim',
+      subtitle: 'PT Suitmedia Kreasi Indonesia | Mobile Developer',
+      period: 'Flutter + Firebase superapp',
+      description:
+          'Developed core features for the Teman Muslim production superapp, integrated REST APIs, applied GetX for efficient state handling, and collaborated using GitLab workflows.',
+      externalLabel: 'View on Google Play',
+      externalUrl:
+          'https://play.google.com/store/apps/details?id=com.temanmuslim&pcampaignid=web_share',
+      secondaryExternalLabel: 'View on App Store',
+      secondaryExternalUrl:
+          'https://apps.apple.com/us/app/teman-muslim-al-quran-sholat/id6739802776',
+      accent: Color(0xFFD8E7DE),
+      icon: Icons.mobile_friendly_outlined,
+      screenshots: [
+        'assets/teman_muslim/temanmuslim_home.webp',
+        'assets/teman_muslim/temanmuslim_alquran.webp',
+        'assets/teman_muslim/temanmuslim_sholat.webp',
+        'assets/teman_muslim/temanmuslim_fatwa.webp',
+        'assets/teman_muslim/temanmuslim_haji_umroh.webp',
+      ],
+    ),
+    PortfolioProject(
+      title: 'HiredToday',
+      subtitle: 'PT Ponseljobs Indonesia | Mobile Developer',
       period: 'Production job portal',
       description:
           'Built key features for the HiredToday recruitment platform, integrated REST APIs with GetX state management, and collaborated across teams to ship scalable production-ready mobile solutions.',
@@ -37,24 +59,8 @@ class HomeController extends GetxController {
       ],
     ),
     PortfolioProject(
-      title: 'PT Suitmedia Kreasi Indonesia',
-      subtitle: 'Mobile Developer',
-      period: 'Flutter + Firebase superapp',
-      description:
-          'Developed core features for the Teman Muslim production superapp, integrated REST APIs, applied GetX for efficient state handling, and collaborated using GitLab workflows.',
-      accent: Color(0xFFD8E7DE),
-      icon: Icons.mobile_friendly_outlined,
-      screenshots: [
-        'assets/teman_muslim/temanmuslim_home.webp',
-        'assets/teman_muslim/temanmuslim_alquran.webp',
-        'assets/teman_muslim/temanmuslim_sholat.webp',
-        'assets/teman_muslim/temanmuslim_fatwa.webp',
-        'assets/teman_muslim/temanmuslim_haji_umroh.webp',
-      ],
-    ),
-    PortfolioProject(
-      title: 'Alterra Academy',
-      subtitle: 'Flutter Developer Academy Student',
+      title: 'RecyThing',
+      subtitle: 'Alterra Academy | Capstone Project',
       period: 'Bloc/Cubit learning project',
       description:
           'Built RecyThing, an environmental mobile app using Flutter with Bloc/Cubit architecture, a gamified mission system, backend integrations, and GitHub-based version control.',
@@ -65,7 +71,7 @@ class HomeController extends GetxController {
         'assets/recything/recything_introduction.jpg',
         'assets/recything/recything_core_features.jpg',
       ],
-      screenshotType: ScreenshotType.landscape
+      screenshotType: ScreenshotType.landscape,
     ),
   ];
 

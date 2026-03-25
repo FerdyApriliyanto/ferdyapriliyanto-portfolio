@@ -7,6 +7,10 @@ class PortfolioProject {
   final String subtitle;
   final String period;
   final String description;
+  final String externalLabel;
+  final String externalUrl;
+  final String secondaryExternalLabel;
+  final String secondaryExternalUrl;
   final Color accent;
   final IconData icon;
   final List<String> screenshots;
@@ -17,6 +21,10 @@ class PortfolioProject {
     required this.subtitle,
     required this.period,
     required this.description,
+    this.externalLabel = '',
+    this.externalUrl = '',
+    this.secondaryExternalLabel = '',
+    this.secondaryExternalUrl = '',
     required this.accent,
     required this.icon,
     this.screenshots = const [],
