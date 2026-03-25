@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
 
 import '../../controllers/home_controller.dart';
 
@@ -55,8 +57,8 @@ class _TopNavigationState extends State<TopNavigation> {
               boxShadow: [
                 BoxShadow(
                   color: isScrolled
-                      ? const Color(0x16D8D0C5)
-                      : const Color(0x00D8D0C5),
+                      ? AppColors.shadowSoft.withValues(alpha: 0.12)
+                      : Colors.transparent,
                   blurRadius: isScrolled ? 28 : 0,
                   offset: const Offset(0, 16),
                 ),
@@ -82,13 +84,13 @@ class _TopNavigationState extends State<TopNavigation> {
                   ),
                   decoration: BoxDecoration(
                     color: isScrolled
-                        ? const Color(0xA8FFFFFF)
-                        : const Color(0x00FFFFFF),
+                        ? AppColors.surface.withValues(alpha: 0.66)
+                        : AppColors.surfaceTransparent,
                     borderRadius: borderRadius,
                     border: Border.all(
                       color: isScrolled
-                          ? const Color(0xBFE7E0D5)
-                          : const Color(0x00E7E0D5),
+                          ? AppColors.border.withValues(alpha: 0.75)
+                          : AppColors.borderTransparent,
                     ),
                   ),
                   child: Row(
@@ -103,11 +105,7 @@ class _TopNavigationState extends State<TopNavigation> {
                             ? (isScrolled ? 48 : 54)
                             : 48,
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [Color(0xFF171717), Color(0xFF33312E)],
-                          ),
+                          gradient: AppGradients.brandDark,
                           borderRadius: BorderRadius.circular(
                             isScrolled ? 18 : 20,
                           ),
@@ -116,7 +114,7 @@ class _TopNavigationState extends State<TopNavigation> {
                         child: Text(
                           'FA',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Colors.white,
+                            color: AppColors.onDark,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0.8,
                           ),
@@ -133,7 +131,7 @@ class _TopNavigationState extends State<TopNavigation> {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                    color: const Color(0xFF201F1C),
+                                    color: AppColors.textStrong,
                                     fontWeight: FontWeight.w700,
                                   ),
                             ),
@@ -141,7 +139,7 @@ class _TopNavigationState extends State<TopNavigation> {
                               duration: const Duration(milliseconds: 260),
                               curve: Curves.easeOutCubic,
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: const Color(0xFF78716A),
+                                    color: AppColors.textMuted,
                                     fontWeight: FontWeight.w600,
                                   ) ??
                                   const TextStyle(),
@@ -188,13 +186,13 @@ class _TopNavigationState extends State<TopNavigation> {
                               vertical: 11,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF1A1A1A),
+                              color: AppColors.brandDark,
                               borderRadius: BorderRadius.circular(999),
                               boxShadow: [
                                 BoxShadow(
                                   color: isScrolled
-                                      ? const Color(0x14000000)
-                                      : const Color(0x1A000000),
+                                      ? AppColors.shadowSoft.withValues(alpha: 0.12)
+                                      : AppColors.shadowSoft.withValues(alpha: 0.16),
                                   blurRadius: isScrolled ? 10 : 16,
                                   offset: const Offset(0, 8),
                                 ),
@@ -203,7 +201,7 @@ class _TopNavigationState extends State<TopNavigation> {
                             child: Text(
                               'Let\'s talk',
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Colors.white,
+                                color: AppColors.onDark,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -219,29 +217,15 @@ class _TopNavigationState extends State<TopNavigation> {
                             height: isScrolled ? 50 : 54,
                             decoration: BoxDecoration(
                               gradient: controller.isMenuOpen.value
-                                  ? const LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFF171717),
-                                        Color(0xFF312F2C),
-                                      ],
-                                    )
-                                  : const LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xFFFFFDFC),
-                                        Color(0xFFF1E8DA),
-                                      ],
-                                    ),
+                                  ? AppGradients.mobileMenuButton
+                                  : AppGradients.mobileMenuButtonSoft,
                               borderRadius: BorderRadius.circular(
                                 isScrolled ? 18 : 20,
                               ),
                               border: Border.all(
                                 color: controller.isMenuOpen.value
-                                    ? const Color(0xFF2D2B28)
-                                    : const Color(0xFFE0D4C4),
+                                    ? AppColors.textPrimary
+                                    : AppColors.borderMuted,
                               ),
                             ),
                             alignment: Alignment.center,
@@ -269,7 +253,7 @@ class _HamburgerGlyph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lineColor = open ? Colors.white : const Color(0xFF1F1D1A);
+    final lineColor = open ? AppColors.onDark : AppColors.textStrong;
 
     return SizedBox(
       width: 24,
@@ -358,13 +342,13 @@ class _NavButtonState extends State<_NavButton> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: widget.active
-                ? const Color(0xFFF5EFE6)
-                : const Color(0x00F5EFE6),
+                ? AppColors.pillSurface
+                : AppColors.pillSurfaceTransparent,
             borderRadius: BorderRadius.circular(999),
             border: Border.all(
               color: widget.active
-                  ? const Color(0xFFE6DCCE)
-                  : const Color(0x00E6DCCE),
+                  ? AppColors.borderAccent
+                  : AppColors.borderTransparent,
             ),
           ),
           child: AnimatedDefaultTextStyle(
@@ -372,10 +356,10 @@ class _NavButtonState extends State<_NavButton> {
             curve: Curves.easeOut,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: widget.active
-                  ? const Color(0xFF1F1D1A)
+                  ? AppColors.textStrong
                   : _hovering
-                  ? const Color(0xFFAAAAAA)
-                  : const Color(0xFF353535),
+                  ? AppColors.textSoft
+                  : AppColors.textTertiary,
               fontWeight: widget.active ? FontWeight.w700 : FontWeight.w600,
             ),
             child: Text(widget.label),

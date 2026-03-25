@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/contact_section.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/footer_section.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/hero_section.dart';
@@ -22,24 +24,18 @@ class HomeView extends GetView<HomeController> {
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFFFFEFC), Color(0xFFF7F7F3)],
-          ),
-        ),
+        decoration: const BoxDecoration(gradient: AppGradients.pageBackground),
         child: Stack(
           children: [
             const Positioned(
               top: -120,
               right: -80,
-              child: _AmbientGlow(color: Color(0x18D8E5DD), size: 320),
+              child: _AmbientGlow(color: AppColors.ambientGlowPrimary, size: 320),
             ),
             const Positioned(
               top: 520,
               left: -100,
-              child: _AmbientGlow(color: Color(0x16EEE8DE), size: 260),
+              child: _AmbientGlow(color: AppColors.ambientGlowSecondary, size: 260),
             ),
             SafeArea(
               child: Stack(

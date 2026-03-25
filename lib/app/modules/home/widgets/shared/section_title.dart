@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
@@ -22,14 +23,14 @@ class SectionTitle extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFFFFF),
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(999),
-            border: Border.all(color: const Color(0xFFECE8E1)),
+            border: Border.all(color: AppColors.borderSoft),
           ),
           child: Text(
             eyebrow,
             style: textTheme.labelMedium?.copyWith(
-              color: const Color(0xFF5D5B57),
+              color: AppColors.textSecondary,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.3,
             ),
@@ -40,7 +41,7 @@ class SectionTitle extends StatelessWidget {
           title,
           style: textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF1D1D1D),
+            color: AppColors.textPrimary,
             height: 1.15,
           ),
         ),
@@ -50,7 +51,7 @@ class SectionTitle extends StatelessWidget {
           child: Text(
             description,
             style: textTheme.bodyLarge?.copyWith(
-              color: const Color(0xFF64615C),
+              color: AppColors.textMuted,
               height: 1.75,
             ),
           ),

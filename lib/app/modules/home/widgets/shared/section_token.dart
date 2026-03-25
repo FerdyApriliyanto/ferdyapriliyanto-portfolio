@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class SectionToken extends StatelessWidget {
   const SectionToken({required this.label, this.dark = false, super.key});
@@ -11,16 +12,16 @@ class SectionToken extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: dark ? const Color(0xFF191919) : const Color(0xFFF8F8F5),
+        color: dark ? AppColors.brandDark : AppColors.surfaceMuted,
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: dark ? Colors.transparent : const Color(0xFFECE8E2),
+          color: dark ? Colors.transparent : AppColors.borderSoft,
         ),
       ),
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: dark ? Colors.white : const Color(0xFF5D5955),
+          color: dark ? AppColors.onDark : AppColors.textSecondary,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.2,
         ),

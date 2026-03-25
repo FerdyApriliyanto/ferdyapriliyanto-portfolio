@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 import '../shared/portfolio_button.dart';
 import 'hero_badges.dart';
@@ -56,7 +57,7 @@ class HeroDesktop extends StatelessWidget {
                   fontSize: 74,
                   height: 0.96,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF121212),
+                  color: AppColors.textStrong,
                   letterSpacing: -2.6,
                 ),
               ),
@@ -67,7 +68,7 @@ class HeroDesktop extends StatelessWidget {
                     const TextSpan(text: 'Flutter-focused '),
                     TextSpan(
                       text: role,
-                      style: const TextStyle(color: Color(0xFFFC6B10)),
+                      style: const TextStyle(color: AppColors.accentWarm),
                     ),
                     const TextSpan(text: ' crafting reliable mobile apps.'),
                   ],
@@ -86,7 +87,7 @@ class HeroDesktop extends StatelessWidget {
                 child: Text(
                   headline,
                   style: textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF716B65),
+                    color: AppColors.textMuted,
                     height: 1.8,
                   ),
                 ),
@@ -162,7 +163,7 @@ class HeroMobile extends StatelessWidget {
             fontSize: 46,
             height: 0.96,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF121212),
+            color: AppColors.textStrong,
             letterSpacing: -1.8,
           ),
         ),
@@ -173,7 +174,7 @@ class HeroMobile extends StatelessWidget {
               const TextSpan(text: 'Flutter-focused '),
               TextSpan(
                 text: role,
-                style: const TextStyle(color: Color(0xFFFC6B10)),
+                style: const TextStyle(color: AppColors.accentWarm),
               ),
               const TextSpan(text: ' crafting reliable mobile apps.'),
             ],
@@ -190,7 +191,7 @@ class HeroMobile extends StatelessWidget {
         Text(
           headline,
           style: textTheme.bodyLarge?.copyWith(
-            color: const Color(0xFF716B65),
+            color: AppColors.textMuted,
             height: 1.8,
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class PhoneMockup extends StatelessWidget {
   const PhoneMockup({
@@ -30,10 +31,10 @@ class PhoneMockup extends StatelessWidget {
         borderRadius: BorderRadius.circular(radiusBase * 0.12),
         border: lightBackground
             ? null
-            : Border.all(color: const Color(0xFFDDD9D3), width: 1.5),
+            : Border.all(color: AppColors.borderMuted, width: 1.5),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x18000000),
+            color: AppColors.shadowMuted,
             blurRadius: 24,
             offset: Offset(0, 10),
           ),

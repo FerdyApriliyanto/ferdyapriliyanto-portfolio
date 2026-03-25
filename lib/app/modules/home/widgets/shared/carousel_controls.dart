@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class CarouselButton extends StatelessWidget {
   const CarouselButton({
@@ -24,24 +25,24 @@ class CarouselButton extends StatelessWidget {
           height: 28,
           decoration: BoxDecoration(
             color: tinted
-                ? Colors.white.withValues(alpha: 0.7)
-                : const Color(0xFFE8E3DC),
+                ? AppColors.surface.withValues(alpha: 0.7)
+                : AppColors.borderWarm,
             borderRadius: BorderRadius.circular(999),
             border: Border.all(
               color: tinted
-                  ? Colors.white.withValues(alpha: 0.5)
-                  : const Color(0xFFB5AFA7),
+                  ? AppColors.surface.withValues(alpha: 0.5)
+                  : AppColors.textMuted.withValues(alpha: 0.45),
             ),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x14000000),
+                color: AppColors.shadowSoft,
                 blurRadius: 8,
                 offset: Offset(0, 2),
               ),
             ],
           ),
           alignment: Alignment.center,
-          child: Icon(icon, size: 18, color: const Color(0xFF2D2D2D)),
+          child: Icon(icon, size: 18, color: AppColors.textPrimary),
         ),
       ),
     );
@@ -64,11 +65,11 @@ class DotIndicator extends StatelessWidget {
       decoration: BoxDecoration(
         color: active
             ? (tinted
-                  ? Color(0xFF1E1E1E).withValues(alpha: 0.90)
-                  : const Color(0xFF2D2D2D))
+                  ? AppColors.textPrimary.withValues(alpha: 0.90)
+                  : AppColors.textPrimary)
             : (tinted
-                  ? Color(0xFF1E1E1E).withValues(alpha: 0.24)
-                  : const Color(0xFF7D7870)),
+                  ? AppColors.textPrimary.withValues(alpha: 0.24)
+                  : AppColors.textMuted.withValues(alpha: 0.78)),
         borderRadius: BorderRadius.circular(999),
       ),
     );

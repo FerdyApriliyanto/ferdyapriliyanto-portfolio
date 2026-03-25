@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/experience_card.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/featured_experience_card.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 import '../../widgets/shared/section_title.dart';
 
@@ -57,19 +58,19 @@ class _ProjectsHighlights extends StatelessWidget {
         _HighlightPill(
           label: 'Role',
           value: 'Mobile Developer',
-          tone: const Color(0xFFE9F1EC),
+          tone: AppColors.projectToneGreen,
           compact: isMobile,
         ),
         _HighlightPill(
           label: 'Strength',
           value: 'API-driven features',
-          tone: const Color(0xFFF3EDE3),
+          tone: AppColors.projectToneSand,
           compact: isMobile,
         ),
         _HighlightPill(
           label: 'Focus',
           value: 'Flutter + Product Delivery',
-          tone: const Color(0xFFECEEF7),
+          tone: AppColors.projectToneBlue,
           compact: isMobile,
           wide: true,
         ),
@@ -106,9 +107,9 @@ class _HighlightPill extends StatelessWidget {
         vertical: compact ? 12 : 14,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: const Color(0xFFE9E4DD)),
+        border: Border.all(color: AppColors.borderMuted),
         boxShadow: [
           BoxShadow(
             color: tone.withValues(alpha: 0.9),
@@ -132,7 +133,7 @@ class _HighlightPill extends StatelessWidget {
           Text(
             label,
             style: textTheme.labelMedium?.copyWith(
-              color: const Color(0xFF6A655F),
+              color: AppColors.textMuted,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -142,7 +143,7 @@ class _HighlightPill extends StatelessWidget {
               value,
               overflow: TextOverflow.ellipsis,
               style: textTheme.bodyMedium?.copyWith(
-                color: const Color(0xFF1F1E1B),
+                color: AppColors.textStrong,
                 fontWeight: FontWeight.w700,
               ),
             ),

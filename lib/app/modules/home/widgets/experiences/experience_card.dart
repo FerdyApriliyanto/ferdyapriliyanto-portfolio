@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_shadows.dart';
 
 class ExperienceCard extends StatefulWidget {
   const ExperienceCard({
@@ -40,35 +43,12 @@ class _ExperienceCardState extends State<ExperienceCard> {
           ..translateByDouble(0, _hovering ? -5 : 0, 0, 1),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFFFFFFF), Color(0xFFFFFCF8)],
-          ),
+          gradient: AppGradients.cardSurface,
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: const Color(0xFFEEEAE3)),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x10DBD4C9),
-              blurRadius: 28,
-              offset: Offset(0, 18),
-            ),
-          ],
+          border: Border.all(color: AppColors.border),
+          boxShadow: AppShadows.card,
         ).copyWith(
-          boxShadow: _hovering
-              ? const [
-                  BoxShadow(
-                    color: Color(0x10DBD4C9),
-                    blurRadius: 28,
-                    offset: Offset(0, 18),
-                  ),
-                  BoxShadow(
-                    color: Color(0x0F000000),
-                    blurRadius: 26,
-                    offset: Offset(0, 16),
-                  ),
-                ]
-              : const [],
+          boxShadow: _hovering ? AppShadows.cardHover : const [],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +65,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                       Text(
                         project.title,
                         style: textTheme.titleLarge?.copyWith(
-                          color: const Color(0xFF1D1D1D),
+                          color: AppColors.textPrimary,
                           fontWeight: FontWeight.w700,
                           height: 1.15,
                         ),
@@ -94,7 +74,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                       Text(
                         project.subtitle,
                         style: textTheme.titleSmall?.copyWith(
-                          color: const Color(0xFF5D5954),
+                          color: AppColors.textSecondary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -120,7 +100,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                     alignment: Alignment.center,
                     child: Icon(
                       project.icon,
-                      color: const Color(0xFF2D2D2D),
+                      color: AppColors.textPrimary,
                       size: widget.compact ? 30 : 34,
                     ),
                   ),
@@ -132,14 +112,14 @@ class _ExperienceCardState extends State<ExperienceCard> {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFF9F8F5),
+                color: AppColors.surfaceSoft,
                 borderRadius: BorderRadius.circular(22),
                 border: Border.all(color: const Color(0xFFF0ECE6)),
               ),
               child: Text(
                 project.description,
                 style: textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF66625E),
+                  color: AppColors.textMuted,
                   height: 1.7,
                 ),
               ),
@@ -153,14 +133,14 @@ class _ExperienceCardState extends State<ExperienceCard> {
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(color: const Color(0xFFEAE7E1)),
+                  border: Border.all(color: AppColors.borderMuted),
                 ),
                 child: Text(
                   project.period,
                   style: textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF57534E),
+                    color: AppColors.textSecondary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -196,7 +176,7 @@ class _MiniMeta extends StatelessWidget {
       child: Text(
         label,
         style: textTheme.labelSmall?.copyWith(
-          color: const Color(0xFF66615C),
+          color: AppColors.textMuted,
           fontWeight: FontWeight.w700,
         ),
       ),

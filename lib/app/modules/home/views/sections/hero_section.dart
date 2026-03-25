@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/hero/hero_content.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_shadows.dart';
 
 class HeroSection extends StatefulWidget {
   const HeroSection({
@@ -59,16 +61,10 @@ class _HeroSectionState extends State<HeroSection>
           constraints: const BoxConstraints(maxWidth: 1200),
           padding: EdgeInsets.all(isMobile ? 24 : 36),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFFFFF),
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(40),
-            border: Border.all(color: const Color(0xFFEEEAE3)),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x0D000000),
-                blurRadius: 40,
-                offset: Offset(0, 20),
-              ),
-            ],
+            border: Border.all(color: AppColors.border),
+            boxShadow: AppShadows.softPanel,
           ),
           child: isMobile
               ? HeroMobile(

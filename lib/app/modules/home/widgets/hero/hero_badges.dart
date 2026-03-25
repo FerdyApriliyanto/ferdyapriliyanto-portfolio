@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
 
 class AvatarBadge extends StatelessWidget {
   const AvatarBadge({super.key});
@@ -10,12 +12,12 @@ class AvatarBadge extends StatelessWidget {
       height: 96,
       padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
-        color: const Color(0xFFFCFBF8),
+        color: AppColors.pageGradientTop,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: const Color(0xFFE7E1D9), width: 1.6),
+        border: Border.all(color: AppColors.borderWarm, width: 1.6),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x12000000),
+            color: AppColors.shadowMuted,
             blurRadius: 22,
             offset: Offset(0, 12),
           ),
@@ -63,15 +65,11 @@ class AvatarBadge extends StatelessWidget {
               ),
               DecoratedBox(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: const [Color(0x04FFFFFF), Color(0x34000000)],
-                  ),
+                  gradient: AppGradients.avatarOverlay,
                 ),
               ),
               const DecoratedBox(
-                decoration: BoxDecoration(color: Color(0x22000000)),
+                decoration: BoxDecoration(color: AppColors.overlaySoft),
               ),
             ],
           ),
@@ -92,19 +90,19 @@ class InfoPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F8F5),
+        color: AppColors.surfaceSoft,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: const Color(0xFFE8E3DB)),
+        border: Border.all(color: AppColors.borderWarm),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: const Color(0xFF6C6661)),
+          Icon(icon, size: 16, color: AppColors.textMuted),
           const SizedBox(width: 8),
           Text(
             label,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF3A3734),
+              color: AppColors.textStrong,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -122,9 +120,9 @@ class AvailabilityPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF),
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: const Color(0xFFE8E3DB)),
+        border: Border.all(color: AppColors.borderWarm),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -133,11 +131,11 @@ class AvailabilityPill extends StatelessWidget {
             width: 10,
             height: 10,
             decoration: const BoxDecoration(
-              color: Color(0xFF33E27A),
+              color: AppColors.accentSuccess,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: Color(0x5533E27A),
+                  color: AppColors.accentSuccessGlow,
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),
@@ -148,7 +146,7 @@ class AvailabilityPill extends StatelessWidget {
           Text(
             'Open to work',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF2C2A27),
+              color: AppColors.textStrong,
               fontWeight: FontWeight.w600,
             ),
           ),

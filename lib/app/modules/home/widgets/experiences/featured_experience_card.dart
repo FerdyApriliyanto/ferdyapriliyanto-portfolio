@@ -5,6 +5,9 @@ import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_shadows.dart';
 
 class FeaturedExperienceCard extends StatefulWidget {
   const FeaturedExperienceCard({required this.project, super.key});
@@ -35,35 +38,12 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
           ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),
         padding: EdgeInsets.all(isMobile ? 20 : 24),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFFFFFFF), Color(0xFFFFFCF6)],
-          ),
+          gradient: AppGradients.heroSurface,
           borderRadius: BorderRadius.circular(34),
-          border: Border.all(color: const Color(0xFFEEEAE3)),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x12DAD2C7),
-              blurRadius: 40,
-              offset: Offset(0, 24),
-            ),
-          ],
+          border: Border.all(color: AppColors.border),
+          boxShadow: AppShadows.featuredCard,
         ).copyWith(
-          boxShadow: _hovering
-              ? const [
-                  BoxShadow(
-                    color: Color(0x12DAD2C7),
-                    blurRadius: 40,
-                    offset: Offset(0, 24),
-                  ),
-                  BoxShadow(
-                    color: Color(0x10000000),
-                    blurRadius: 30,
-                    offset: Offset(0, 18),
-                  ),
-                ]
-              : const [],
+          boxShadow: _hovering ? AppShadows.featuredCardHover : const [],
         ),
         child: isMobile
             ? _FeaturedCardMobile(project: project)
@@ -179,7 +159,7 @@ class _FeaturedCardInfo extends StatelessWidget {
               Text(
                 project.title,
                 style: textTheme.headlineMedium?.copyWith(
-                  color: const Color(0xFF1D1D1D),
+                  color: AppColors.textPrimary,
                   fontWeight: FontWeight.w700,
                   height: 1.05,
                   letterSpacing: -0.8,
@@ -189,7 +169,7 @@ class _FeaturedCardInfo extends StatelessWidget {
               Text(
                 project.subtitle,
                 style: textTheme.titleMedium?.copyWith(
-                  color: const Color(0xFF5D5954),
+                  color: AppColors.textSecondary,
                   fontWeight: FontWeight.w600,
                   height: 1.3,
                 ),
@@ -213,7 +193,7 @@ class _FeaturedCardInfo extends StatelessWidget {
               Text(
                 project.description,
                 style: textTheme.bodyLarge?.copyWith(
-                  color: const Color(0xFF5F5A55),
+                  color: AppColors.textMuted,
                   height: 1.72,
                 ),
               ),
@@ -298,19 +278,19 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F8F5),
+        color: AppColors.surfaceSoft,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: const Color(0xFFECE8E2)),
+        border: Border.all(color: AppColors.borderSoft),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 15, color: const Color(0xFF4D4944)),
+          Icon(icon, size: 15, color: AppColors.textSecondary),
           const SizedBox(width: 8),
           Text(
             label,
             style: textTheme.bodySmall?.copyWith(
-              color: const Color(0xFF3A3834),
+              color: AppColors.textStrong,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -333,18 +313,18 @@ class _MicroBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF1F1E1B),
+        color: AppColors.brandDark,
         borderRadius: BorderRadius.circular(999),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: Colors.white),
+          Icon(icon, size: 14, color: AppColors.onDark),
           const SizedBox(width: 7),
           Text(
             label,
             style: textTheme.labelSmall?.copyWith(
-              color: Colors.white,
+              color: AppColors.onDark,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.2,
             ),
@@ -387,28 +367,28 @@ class _StoreButtonState extends State<_StoreButton> {
     final isGooglePlay = widget.variant == _StoreButtonVariant.googlePlay;
     final gradientColors = isGooglePlay
         ? (_hovering
-            ? const [Color(0xFFFFFFFF), Color(0xFFF1EEE8)]
-            : const [Color(0xFFFFFEFC), Color(0xFFF5F1EB)])
+            ? AppGradients.storeGooglePlayHover.colors
+            : AppGradients.storeGooglePlay.colors)
         : (_hovering
-            ? const [Color(0xFF1D1D1D), Color(0xFF343434)]
-            : const [Color(0xFF242424), Color(0xFF3A3A3A)]);
+            ? AppGradients.storeAppStoreHover.colors
+            : AppGradients.storeAppStore.colors);
     final borderColor = isGooglePlay
-        ? const Color(0xFFD9D1C6).withValues(alpha: _hovering ? 0.96 : 0.86)
-        : const Color(0xFFE5DED5).withValues(alpha: _hovering ? 0.18 : 0.1);
+        ? AppColors.borderWarm.withValues(alpha: _hovering ? 0.96 : 0.86)
+        : AppColors.borderWarm.withValues(alpha: _hovering ? 0.18 : 0.1);
     final iconSurfaceColor = isGooglePlay
         ? const Color(0xFFF1ECE5)
-        : const Color(0xFFFFFFFF).withValues(alpha: _hovering ? 0.16 : 0.1);
+        : AppColors.surface.withValues(alpha: _hovering ? 0.16 : 0.1);
     final iconBorderColor = isGooglePlay
-        ? const Color(0xFFD9D1C7)
-        : const Color(0xFFFFFFFF).withValues(alpha: _hovering ? 0.2 : 0.12);
+        ? AppColors.borderWarm
+        : AppColors.surface.withValues(alpha: _hovering ? 0.2 : 0.12);
     final iconColor =
-        isGooglePlay ? const Color(0xFF353532) : const Color(0xFFF6F3EF);
+        isGooglePlay ? AppColors.textTertiary : AppColors.onDarkMuted;
     final caption = isGooglePlay ? 'Google Play' : 'App Store';
     final textColor =
-        isGooglePlay ? const Color(0xFF2F312E) : const Color(0xFFFFFFFF);
+        isGooglePlay ? const Color(0xFF2F312E) : AppColors.onDark;
     final captionColor = isGooglePlay
         ? const Color(0xFF66615B)
-        : Colors.white.withValues(alpha: 0.78);
+        : AppColors.onDark.withValues(alpha: 0.78);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
@@ -432,8 +412,8 @@ class _StoreButtonState extends State<_StoreButton> {
                 ? [
                     BoxShadow(
                       color: isGooglePlay
-                          ? const Color(0x12C9C0B6)
-                          : const Color(0x14000000),
+                          ? AppColors.borderWarm.withValues(alpha: 0.72)
+                          : AppColors.shadowSoft.withValues(alpha: 0.16),
                       blurRadius: 22,
                       offset: const Offset(0, 12),
                     ),
@@ -502,7 +482,7 @@ class _StoreButtonState extends State<_StoreButton> {
               Icon(
                 Icons.open_in_new_rounded,
                 size: 18,
-                color: isGooglePlay ? const Color(0xFF3B3A37) : Colors.white,
+                color: isGooglePlay ? const Color(0xFF3B3A37) : AppColors.onDark,
               ),
             ],
           ),

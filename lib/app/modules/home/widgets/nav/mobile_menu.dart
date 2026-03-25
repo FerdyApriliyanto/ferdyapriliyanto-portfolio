@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_gradients.dart';
 
 import '../../controllers/home_controller.dart';
 
@@ -41,7 +43,7 @@ class MobileMenuOverlay extends StatelessWidget {
               key: const ValueKey('open'),
               onTap: onClose,
               child: Container(
-                color: const Color(0x66000000),
+                color: AppColors.overlayBackdrop,
                 alignment: Alignment.topCenter,
                 child: GestureDetector(
                   onTap: () {},
@@ -55,16 +57,12 @@ class MobileMenuOverlay extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [Color(0xEFFFFFFF), Color(0xE8FFFCF7)],
-                              ),
+                              gradient: AppGradients.mobileMenuSurface,
                               borderRadius: BorderRadius.circular(28),
-                              border: Border.all(color: const Color(0xFFEAE7E1)),
+                              border: Border.all(color: AppColors.borderMuted),
                               boxShadow: const [
                                 BoxShadow(
-                                  color: Color(0x1A000000),
+                                  color: AppColors.shadowMuted,
                                   blurRadius: 32,
                                   offset: Offset(0, 12),
                                 ),
@@ -102,8 +100,8 @@ class MobileMenuOverlay extends StatelessWidget {
                                       HomeController.whatsappUrl,
                                     ),
                                     style: FilledButton.styleFrom(
-                                      backgroundColor: const Color(0xFF1A1A1A),
-                                      foregroundColor: Colors.white,
+                                      backgroundColor: AppColors.brandDark,
+                                      foregroundColor: AppColors.onDark,
                                       padding: const EdgeInsets.symmetric(
                                         vertical: 15,
                                       ),
@@ -170,7 +168,7 @@ class _MobileMenuItemState extends State<MobileMenuItem> {
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(16),
               border: widget.active
-                  ? Border.all(color: const Color(0xFFE6DBCD))
+                  ? Border.all(color: AppColors.borderAccent)
                   : null,
             ),
             child: Row(
@@ -179,16 +177,16 @@ class _MobileMenuItemState extends State<MobileMenuItem> {
                   widget.icon,
                   size: 20,
                   color: widget.active
-                      ? const Color(0xFF1F1D1A)
-                      : const Color(0xFF353535),
+                      ? AppColors.textStrong
+                      : AppColors.textTertiary,
                 ),
                 const SizedBox(width: 14),
                 Text(
                   widget.label,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: widget.active
-                        ? const Color(0xFF1F1D1A)
-                        : const Color(0xFF353535),
+                        ? AppColors.textStrong
+                        : AppColors.textTertiary,
                     fontWeight: widget.active
                         ? FontWeight.w700
                         : FontWeight.w600,
@@ -199,7 +197,7 @@ class _MobileMenuItemState extends State<MobileMenuItem> {
                   const Icon(
                     Icons.arrow_outward_rounded,
                     size: 18,
-                    color: Color(0xFF1F1D1A),
+                    color: AppColors.textStrong,
                   ),
               ],
             ),

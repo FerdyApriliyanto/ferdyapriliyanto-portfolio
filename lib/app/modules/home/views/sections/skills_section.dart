@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_skill.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_shadows.dart';
 
 import '../../widgets/shared/section_title.dart';
 
@@ -64,17 +66,11 @@ class _SkillCardState extends State<_SkillCard> {
           duration: const Duration(milliseconds: 180),
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFFFFF),
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: const Color(0xFFEEEAE3)),
+            border: Border.all(color: AppColors.border),
             boxShadow: _hovering
-                ? const [
-                    BoxShadow(
-                      color: Color(0x10000000),
-                      blurRadius: 24,
-                      offset: Offset(0, 12),
-                    ),
-                  ]
+                ? AppShadows.buttonHover
                 : const [],
           ),
           child: Column(
@@ -83,24 +79,24 @@ class _SkillCardState extends State<_SkillCard> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: Icon(widget.skill.icon, color: const Color(0xFF2D2D2D)),
+                child: Icon(widget.skill.icon, color: AppColors.textPrimary),
               ),
               const SizedBox(height: 18),
               Text(
                 widget.skill.title,
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1F1F1F),
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 widget.skill.description,
                 style: textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF67635F),
+                  color: AppColors.textMuted,
                   height: 1.65,
                 ),
               ),

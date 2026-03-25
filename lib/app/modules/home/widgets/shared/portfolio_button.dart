@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_shadows.dart';
 
 class PortfolioButton extends StatefulWidget {
   const PortfolioButton({
@@ -23,7 +25,7 @@ class _PortfolioButtonState extends State<PortfolioButton> {
 
   @override
   Widget build(BuildContext context) {
-    final foreground = widget.primary ? Colors.white : const Color(0xFF1D1D1D);
+    final foreground = widget.primary ? AppColors.onDark : AppColors.textPrimary;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
@@ -37,26 +39,18 @@ class _PortfolioButtonState extends State<PortfolioButton> {
           decoration: BoxDecoration(
             color: widget.primary
                 ? (_hovering
-                      ? const Color(0xFF2A2A2A)
-                      : const Color(0xFF191919))
+                      ? AppColors.brandDarkHover
+                      : AppColors.brandDark)
                 : (_hovering
-                      ? const Color(0xFFF8F8F5)
-                      : const Color(0xFFFFFFFF)),
+                      ? AppColors.surfaceMuted
+                      : AppColors.surface),
             borderRadius: BorderRadius.circular(999),
             border: Border.all(
               color: widget.primary
                   ? Colors.transparent
-                  : const Color(0xFFEAE7E1),
+                  : AppColors.borderMuted,
             ),
-            boxShadow: _hovering
-                ? const [
-                    BoxShadow(
-                      color: Color(0x12000000),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ]
-                : const [],
+            boxShadow: _hovering ? AppShadows.buttonHover : const [],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

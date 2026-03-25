@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:personal_portfolio/app/models/contact_link.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 import '../../widgets/shared/portfolio_button.dart';
 import '../../widgets/shared/section_title.dart';
@@ -23,12 +24,12 @@ class ContactSection extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(isMobile ? 24 : 32),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF),
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: const Color(0xFFEEEAE3)),
+        border: Border.all(color: AppColors.border),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x0C000000),
+            color: AppColors.shadowSoft,
             blurRadius: 32,
             offset: Offset(0, 18),
           ),
@@ -82,9 +83,9 @@ class _ContactCard extends StatelessWidget {
       width: isMobile ? double.infinity : 340,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFF),
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFF0ECE5)),
+        border: Border.all(color: AppColors.borderPanel),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +93,7 @@ class _ContactCard extends StatelessWidget {
           Text(
             contact.label,
             style: textTheme.labelLarge?.copyWith(
-              color: const Color(0xFF6B6762),
+              color: AppColors.textMuted,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -100,7 +101,7 @@ class _ContactCard extends StatelessWidget {
           SelectableText(
             contact.value,
             style: textTheme.titleMedium?.copyWith(
-              color: const Color(0xFF1E1E1E),
+              color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),

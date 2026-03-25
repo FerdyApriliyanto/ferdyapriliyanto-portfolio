@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class FooterSection extends StatelessWidget {
   FooterSection({super.key});
@@ -15,7 +16,7 @@ class FooterSection extends StatelessWidget {
       margin: const EdgeInsets.all(24),
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F7F7),
+        color: AppColors.surfaceMuted,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -40,13 +41,11 @@ class FooterSection extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 20),
-
           Text(
-            '© 2026 Ferdy Apriliyanto. All rights reserved.',
+            '${String.fromCharCode(169)} 2026 Ferdy Apriliyanto. All rights reserved.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            style: const TextStyle(fontSize: 14, color: AppColors.textFooter),
           ),
         ],
       ),
@@ -62,16 +61,16 @@ class FooterSection extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.surface,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
                 blurRadius: 8,
-                color: Colors.black.withValues(alpha: 0.05),
+                color: AppColors.shadowSoft.withValues(alpha: 0.4),
               ),
             ],
           ),
-          child: FaIcon(icon, size: 18, color: Colors.black87),
+          child: FaIcon(icon, size: 18, color: AppColors.textPrimary),
         ),
       ),
     );

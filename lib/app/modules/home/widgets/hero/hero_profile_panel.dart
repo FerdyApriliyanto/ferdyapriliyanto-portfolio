@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/theme/app_colors.dart';
 
 class HeroProfilePanel extends StatelessWidget {
   const HeroProfilePanel({required this.summary, super.key});
@@ -13,9 +14,9 @@ class HeroProfilePanel extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9F8F5),
+        color: AppColors.surfaceSoft,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: const Color(0xFFECE7DF)),
+        border: Border.all(color: AppColors.borderSoft),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +24,7 @@ class HeroProfilePanel extends StatelessWidget {
           Text(
             'Profile',
             style: textTheme.labelLarge?.copyWith(
-              color: const Color(0xFF7A746F),
+              color: AppColors.textMuted,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.4,
             ),
@@ -35,7 +36,7 @@ class HeroProfilePanel extends StatelessWidget {
               fontSize: 24,
               height: 1.38,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF1D1D1D),
+              color: AppColors.textPrimary,
               letterSpacing: -0.5,
             ),
           ),
@@ -67,7 +68,7 @@ class _MetricRow extends StatelessWidget {
           child: Text(
             label,
             style: textTheme.bodyMedium?.copyWith(
-              color: const Color(0xFF7A746F),
+              color: AppColors.textMuted,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -76,7 +77,7 @@ class _MetricRow extends StatelessWidget {
         Text(
           value,
           style: textTheme.bodyMedium?.copyWith(
-            color: const Color(0xFF1C1C1C),
+            color: AppColors.textPrimary,
             fontWeight: FontWeight.w700,
           ),
         ),
