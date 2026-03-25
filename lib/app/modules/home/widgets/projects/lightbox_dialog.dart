@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/models/portfolio_project.dart';
 
 import '../shared/carousel_controls.dart';
 import '../shared/phone_mockup.dart';
@@ -7,11 +8,13 @@ class LightboxDialog extends StatefulWidget {
   const LightboxDialog({
     required this.screenshots,
     required this.initialIndex,
+    required this.screenshotType,
     super.key,
   });
 
   final List<String> screenshots;
   final int initialIndex;
+  final ScreenshotType screenshotType;
 
   @override
   State<LightboxDialog> createState() => _LightboxDialogState();
@@ -37,6 +40,14 @@ class _LightboxDialogState extends State<LightboxDialog> {
   @override
   Widget build(BuildContext context) {
     final total = widget.screenshots.length;
+    final isLandscape = widget.screenshotType == ScreenshotType.landscape;
+    final screenSize = MediaQuery.sizeOf(context);
+    final previewWidth = isLandscape
+        ? (screenSize.width * 0.68).clamp(260.0, 520.0)
+        : (screenSize.width * 0.28).clamp(220.0, 240.0);
+    final previewHeight = isLandscape
+        ? (previewWidth / 1.625)
+        : (previewWidth * 1.92);
 
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),
@@ -72,8 +83,9 @@ class _LightboxDialogState extends State<LightboxDialog> {
                       child: PhoneMockup(
                         key: ValueKey(_current),
                         assetPath: widget.screenshots[_current],
-                        width: 240,
-                        height: 460,
+                        width: previewWidth,
+                        height: previewHeight,
+                        screenshotType: widget.screenshotType,
                         lightBackground: true,
                       ),
                     ),

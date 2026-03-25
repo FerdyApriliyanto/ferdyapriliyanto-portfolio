@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:personal_portfolio/app/models/portfolio_project.dart';
 
 class PhoneMockup extends StatelessWidget {
   const PhoneMockup({
     required this.assetPath,
     required this.width,
     required this.height,
+    this.screenshotType = ScreenshotType.portrait,
     this.lightBackground = false,
     super.key,
   });
@@ -12,15 +14,20 @@ class PhoneMockup extends StatelessWidget {
   final String assetPath;
   final double width;
   final double height;
+  final ScreenshotType screenshotType;
   final bool lightBackground;
 
   @override
   Widget build(BuildContext context) {
+    final radiusBase = screenshotType == ScreenshotType.landscape
+        ? height
+        : width;
+
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(width * 0.12),
+        borderRadius: BorderRadius.circular(radiusBase * 0.12),
         border: lightBackground
             ? null
             : Border.all(color: const Color(0xFFDDD9D3), width: 1.5),

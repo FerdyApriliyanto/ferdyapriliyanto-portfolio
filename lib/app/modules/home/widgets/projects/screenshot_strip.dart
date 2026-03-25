@@ -24,6 +24,7 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
       builder: (_) => LightboxDialog(
         screenshots: widget.project.screenshots,
         initialIndex: index,
+        screenshotType: widget.project.screenshotType,
       ),
     );
   }
@@ -32,8 +33,8 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
   Widget build(BuildContext context) {
     final screenshots = widget.project.screenshots;
     final total = screenshots.length;
-    final prev = (_current - 1 + total) % total;
-    final next = (_current + 1) % total;
+    final isLandscape =
+        widget.project.screenshotType == ScreenshotType.landscape;
 
     return Container(
       width: double.infinity,
@@ -52,58 +53,21 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
       child: Column(
         mainAxisAlignment: .center,
         children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final availableWidth = (constraints.maxWidth - 16) / 3;
-              final centerHeight = (availableWidth * 2.1).clamp(
-                0.0,
-                constraints.maxHeight,
-              );
-              final sideHeight = centerHeight * 0.82;
-              final offset = (centerHeight - sideHeight) / 2;
-
-              return Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Transform.translate(
-                        offset: Offset(0, offset),
-                        child: _StripPhone(
-                          assetPath: screenshots[prev],
-                          height: sideHeight,
-                          onTap: () => _openLightbox(context, prev),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: _StripPhone(
-                        assetPath: screenshots[_current],
-                        height: centerHeight,
-                        isCenter: true,
-                        onTap: () => _openLightbox(context, _current),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Transform.translate(
-                        offset: Offset(0, offset),
-                        child: _StripPhone(
-                          assetPath: screenshots[next],
-                          height: sideHeight,
-                          onTap: () => _openLightbox(context, next),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 24),
+          if (isLandscape)
+            _LandscapePreview(
+              screenshots: screenshots,
+              current: _current,
+              screenshotType: widget.project.screenshotType,
+              onTap: () => _openLightbox(context, _current),
+            )
+          else
+            _PortraitPreviewStrip(
+              screenshots: screenshots,
+              current: _current,
+              screenshotType: widget.project.screenshotType,
+              onTap: (index) => _openLightbox(context, index),
+            ),
+          SizedBox(height: isLandscape ? 24 : 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -132,18 +96,136 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
   }
 }
 
+class _PortraitPreviewStrip extends StatelessWidget {
+  const _PortraitPreviewStrip({
+    required this.screenshots,
+    required this.current,
+    required this.screenshotType,
+    required this.onTap,
+  });
+
+  final List<String> screenshots;
+  final int current;
+  final ScreenshotType screenshotType;
+  final ValueChanged<int> onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final total = screenshots.length;
+    final prev = (current - 1 + total) % total;
+    final next = (current + 1) % total;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final availableWidth = (constraints.maxWidth - 16) / 3;
+        final centerHeight = availableWidth * 1.82;
+        final sideHeight = centerHeight * 0.82;
+        final offset = (centerHeight - sideHeight) / 2;
+
+        return Align(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Transform.translate(
+                  offset: Offset(0, offset),
+                  child: _StripPhone(
+                    assetPath: screenshots[prev],
+                    height: sideHeight,
+                    screenshotType: screenshotType,
+                    onTap: () => onTap(prev),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _StripPhone(
+                  assetPath: screenshots[current],
+                  height: centerHeight,
+                  screenshotType: screenshotType,
+                  onTap: () => onTap(current),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Transform.translate(
+                  offset: Offset(0, offset),
+                  child: _StripPhone(
+                    assetPath: screenshots[next],
+                    height: sideHeight,
+                    screenshotType: screenshotType,
+                    onTap: () => onTap(next),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _LandscapePreview extends StatelessWidget {
+  const _LandscapePreview({
+    required this.screenshots,
+    required this.current,
+    required this.screenshotType,
+    required this.onTap,
+  });
+
+  final List<String> screenshots;
+  final int current;
+  final ScreenshotType screenshotType;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final portraitReferenceHeight = ((constraints.maxWidth - 16) / 3) * 1.82;
+        final frameHeight = portraitReferenceHeight.clamp(210.0, 276.0);
+        final previewHeight = (frameHeight * 1).clamp(200.0, frameHeight);
+        final previewWidth = (previewHeight * 1.625).clamp(
+          0.0,
+          constraints.maxWidth,
+        );
+
+        return Center(
+          child: SizedBox(
+            height: frameHeight,
+            child: Center(
+              child: SizedBox(
+                width: previewWidth,
+                child: _StripPhone(
+                  assetPath: screenshots[current],
+                  height: previewHeight,
+                  screenshotType: screenshotType,
+                  onTap: onTap,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _StripPhone extends StatefulWidget {
   const _StripPhone({
     required this.assetPath,
     required this.height,
+    required this.screenshotType,
     required this.onTap,
-    this.isCenter = false,
   });
 
   final String assetPath;
   final double height;
+  final ScreenshotType screenshotType;
   final VoidCallback onTap;
-  final bool isCenter;
 
   @override
   State<_StripPhone> createState() => _StripPhoneState();
@@ -172,6 +254,7 @@ class _StripPhoneState extends State<_StripPhone> {
                 assetPath: widget.assetPath,
                 width: constraints.maxWidth,
                 height: widget.height,
+                screenshotType: widget.screenshotType,
                 lightBackground: true,
               ),
             );

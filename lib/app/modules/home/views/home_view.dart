@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:personal_portfolio/app/modules/home/views/sections/footer_section.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/nav/mobile_menu.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/nav/top_navigation.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/contact_section.dart';
+import 'package:personal_portfolio/app/modules/home/views/sections/footer_section.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/hero_section.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/projects_section.dart';
 import 'package:personal_portfolio/app/modules/home/views/sections/skills_section.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/nav/mobile_menu.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/nav/top_navigation.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_shell.dart';
 
 import '../controllers/home_controller.dart';
@@ -115,8 +115,7 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-// ── Ambient Glow ──────────────────────────────────────────────────────────────
-
+// AMBIENT GLOW
 class _AmbientGlow extends StatelessWidget {
   const _AmbientGlow({required this.color, required this.size});
 
