@@ -66,6 +66,9 @@ class HomeView extends GetView<HomeController> {
                                   controller.scrollTo(controller.projectsKey),
                               onContact: () =>
                                   controller.scrollTo(controller.contactKey),
+                              onDownloadCv: () => controller.openUrl(
+                                '/Ferdy-Apriliyanto-CV.pdf',
+                              ),
                             ),
                           ),
                           SectionShell(

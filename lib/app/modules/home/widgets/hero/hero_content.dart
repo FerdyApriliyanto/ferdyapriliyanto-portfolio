@@ -12,6 +12,7 @@ class HeroDesktop extends StatelessWidget {
     required this.summary,
     required this.onViewWork,
     required this.onContact,
+    required this.onDownloadCv,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class HeroDesktop extends StatelessWidget {
   final String summary;
   final VoidCallback onViewWork;
   final VoidCallback onContact;
+  final VoidCallback onDownloadCv;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,11 @@ class HeroDesktop extends StatelessWidget {
                     primary: true,
                     onTap: onViewWork,
                   ),
-                  PortfolioButton(label: 'Contact', onTap: onContact),
+                  PortfolioButton(
+                    label: 'Download CV',
+                    icon: Icons.download_rounded,
+                    onTap: onDownloadCv,
+                  ),
                 ],
               ),
             ],
@@ -120,6 +126,7 @@ class HeroMobile extends StatelessWidget {
     required this.summary,
     required this.onViewWork,
     required this.onContact,
+    required this.onDownloadCv,
     super.key,
   });
 
@@ -129,6 +136,7 @@ class HeroMobile extends StatelessWidget {
   final String summary;
   final VoidCallback onViewWork;
   final VoidCallback onContact;
+  final VoidCallback onDownloadCv;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +204,11 @@ class HeroMobile extends StatelessWidget {
               primary: true,
               onTap: onViewWork,
             ),
-            PortfolioButton(label: 'Contact', onTap: onContact),
+            PortfolioButton(
+              label: 'Download CV',
+              icon: Icons.download_rounded,
+              onTap: onDownloadCv,
+            ),
           ],
         ),
         const SizedBox(height: 24),

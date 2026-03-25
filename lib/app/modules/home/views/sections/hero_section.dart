@@ -9,6 +9,7 @@ class HeroSection extends StatefulWidget {
     required this.summary,
     required this.onViewWork,
     required this.onContact,
+    required this.onDownloadCv,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class HeroSection extends StatefulWidget {
   final String summary;
   final VoidCallback onViewWork;
   final VoidCallback onContact;
+  final VoidCallback onDownloadCv;
 
   @override
   State<HeroSection> createState() => _HeroSectionState();
@@ -76,6 +78,7 @@ class _HeroSectionState extends State<HeroSection>
                   summary: widget.summary,
                   onViewWork: widget.onViewWork,
                   onContact: widget.onContact,
+                  onDownloadCv: widget.onDownloadCv,
                 )
               : HeroDesktop(
                   name: widget.name,
@@ -84,6 +87,7 @@ class _HeroSectionState extends State<HeroSection>
                   summary: widget.summary,
                   onViewWork: widget.onViewWork,
                   onContact: widget.onContact,
+                  onDownloadCv: widget.onDownloadCv,
                 ),
         ),
       ),
