@@ -18,6 +18,7 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.sizeOf(context).width < 760;
+    final isTablet = MediaQuery.sizeOf(context).width < 1040;
     final project = widget.project;
     final hasScreenshots = project.screenshots.isNotEmpty;
 
@@ -31,11 +32,28 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
           ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),
         padding: EdgeInsets.all(isMobile ? 20 : 24),
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFFFFFFF), Color(0xFFFFFCF6)],
+          ),
           borderRadius: BorderRadius.circular(34),
           border: Border.all(color: const Color(0xFFEEEAE3)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x12DAD2C7),
+              blurRadius: 40,
+              offset: Offset(0, 24),
+            ),
+          ],
+        ).copyWith(
           boxShadow: _hovering
               ? const [
+                  BoxShadow(
+                    color: Color(0x12DAD2C7),
+                    blurRadius: 40,
+                    offset: Offset(0, 24),
+                  ),
                   BoxShadow(
                     color: Color(0x10000000),
                     blurRadius: 30,
@@ -49,6 +67,7 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
             : _FeaturedCardDesktop(
                 project: project,
                 hasScreenshots: hasScreenshots,
+                compactInfo: isTablet,
               ),
       ),
     );
@@ -59,10 +78,12 @@ class _FeaturedCardDesktop extends StatelessWidget {
   const _FeaturedCardDesktop({
     required this.project,
     required this.hasScreenshots,
+    required this.compactInfo,
   });
 
   final PortfolioProject project;
   final bool hasScreenshots;
+  final bool compactInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +98,13 @@ class _FeaturedCardDesktop extends StatelessWidget {
           child: SizedBox(child: ScreenshotStrip(project: project)),
         ),
         const SizedBox(width: 28),
-        Expanded(child: _FeaturedCardInfo(project: project)),
+        Expanded(
+          child: _FeaturedCardInfo(
+            project: project,
+            featured: true,
+            compact: compactInfo,
+          ),
+        ),
       ],
     );
   }
@@ -93,7 +120,7 @@ class _FeaturedCardMobile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _FeaturedCardInfo(project: project),
+        _FeaturedCardInfo(project: project, featured: true),
         if (project.screenshots.isNotEmpty) ...[
           const SizedBox(height: 24),
           ScreenshotStrip(project: project),
@@ -104,20 +131,40 @@ class _FeaturedCardMobile extends StatelessWidget {
 }
 
 class _FeaturedCardInfo extends StatelessWidget {
-  const _FeaturedCardInfo({required this.project});
+  const _FeaturedCardInfo({
+    required this.project,
+    this.featured = false,
+    this.compact = false,
+  });
 
   final PortfolioProject project;
+  final bool featured;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final screenshotLabel = project.screenshotType == ScreenshotType.landscape
+        ? 'Landscape showcase'
+        : 'Mobile flows';
 
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionToken(label: '01', dark: true),
+          Row(
+            children: [
+              const SectionToken(label: '01', dark: true),
+              if (featured) ...[
+                const SizedBox(width: 10),
+                _MicroBadge(
+                  icon: Icons.workspace_premium_outlined,
+                  label: 'Featured Build',
+                ),
+              ],
+            ],
+          ),
           const SizedBox(height: 20),
           Text(
             project.title,
@@ -136,20 +183,19 @@ class _FeaturedCardInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF9F8F5),
-              borderRadius: BorderRadius.circular(999),
-              border: Border.all(color: const Color(0xFFECE8E2)),
-            ),
-            child: Text(
-              project.period,
-              style: textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF3A3834),
-                fontWeight: FontWeight.w700,
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              _InfoChip(
+                label: project.period,
+                icon: Icons.schedule_outlined,
               ),
-            ),
+              _InfoChip(
+                label: screenshotLabel,
+                icon: Icons.photo_library_outlined,
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           Text(
@@ -161,13 +207,14 @@ class _FeaturedCardInfo extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(compact ? 14 : 16),
             decoration: BoxDecoration(
               color: const Color(0xFFF9F8F5),
               borderRadius: BorderRadius.circular(22),
               border: Border.all(color: const Color(0xFFEFEBE4)),
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   width: 38,
@@ -185,15 +232,98 @@ class _FeaturedCardInfo extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Text(
-                    'Focused on scalable delivery, API-connected flows, and production-ready mobile feature rollout.',
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: const Color(0xFF5F5A55),
-                      height: 1.65,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Delivery Snapshot',
+                        style: textTheme.titleSmall?.copyWith(
+                          color: const Color(0xFF2A2824),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Focused on scalable delivery, API-connected flows, and production-ready mobile feature rollout.',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: const Color(0xFF5F5A55),
+                          height: 1.65,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoChip extends StatelessWidget {
+  const _InfoChip({required this.label, required this.icon});
+
+  final String label;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9F8F5),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: const Color(0xFFECE8E2)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15, color: const Color(0xFF4D4944)),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: textTheme.bodySmall?.copyWith(
+              color: const Color(0xFF3A3834),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MicroBadge extends StatelessWidget {
+  const _MicroBadge({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F1E1B),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: Colors.white),
+          const SizedBox(width: 7),
+          Text(
+            label,
+            style: textTheme.labelSmall?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.2,
             ),
           ),
         ],

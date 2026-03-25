@@ -23,10 +23,12 @@ class ProjectsSection extends StatelessWidget {
         children: [
           const SectionTitle(
             eyebrow: 'Selected Experience',
-            title: 'Recent roles and production work across mobile teams.',
+            title: 'Portfolio snapshots from shipped mobile product work.',
             description:
-                'A short overview of hands-on Flutter experience across recruitment, superapp, and academy environments, with focus on architecture, API integration, and collaboration.',
+                'A curated look at production-facing Flutter work across recruiting, Muslim lifestyle, and academy projects, with emphasis on architecture, API integration, and shipping polish.',
           ),
+          const SizedBox(height: 18),
+          const _ProjectsHighlights(),
           const SizedBox(height: 28),
           if (projects.isNotEmpty)
             FeaturedExperienceCard(project: projects.first),
@@ -35,6 +37,116 @@ class ProjectsSection extends StatelessWidget {
             isDesktop
                 ? _DesktopGrid(projects: projects, isTablet: isTablet)
                 : _MobileList(projects: projects, isTablet: isTablet),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProjectsHighlights extends StatelessWidget {
+  const _ProjectsHighlights();
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
+
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        _HighlightPill(
+          label: 'Role',
+          value: 'Mobile Developer',
+          tone: const Color(0xFFE9F1EC),
+          compact: isMobile,
+        ),
+        _HighlightPill(
+          label: 'Strength',
+          value: 'API-driven features',
+          tone: const Color(0xFFF3EDE3),
+          compact: isMobile,
+        ),
+        _HighlightPill(
+          label: 'Focus',
+          value: 'Flutter + Product Delivery',
+          tone: const Color(0xFFECEEF7),
+          compact: isMobile,
+          wide: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _HighlightPill extends StatelessWidget {
+  const _HighlightPill({
+    required this.label,
+    required this.value,
+    required this.tone,
+    required this.compact,
+    this.wide = false,
+  });
+
+  final String label;
+  final String value;
+  final Color tone;
+  final bool compact;
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: compact ? 120 : (wide ? 260 : 148),
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 14 : 16,
+        vertical: compact ? 12 : 14,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: const Color(0xFFE9E4DD)),
+        boxShadow: [
+          BoxShadow(
+            color: tone.withValues(alpha: 0.9),
+            blurRadius: 18,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              color: tone,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            label,
+            style: textTheme.labelMedium?.copyWith(
+              color: const Color(0xFF6A655F),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.bodyMedium?.copyWith(
+                color: const Color(0xFF1F1E1B),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
         ],
       ),
     );

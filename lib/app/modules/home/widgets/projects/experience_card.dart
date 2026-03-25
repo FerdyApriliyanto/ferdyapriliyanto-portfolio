@@ -26,6 +26,9 @@ class _ExperienceCardState extends State<ExperienceCard> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final project = widget.project;
+    final screenshotLabel = project.screenshotType == ScreenshotType.landscape
+        ? 'Landscape deck'
+        : 'App screens';
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
@@ -37,11 +40,28 @@ class _ExperienceCardState extends State<ExperienceCard> {
           ..translateByDouble(0, _hovering ? -5 : 0, 0, 1),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFFFFFFF), Color(0xFFFFFCF8)],
+          ),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: const Color(0xFFEEEAE3)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x10DBD4C9),
+              blurRadius: 28,
+              offset: Offset(0, 18),
+            ),
+          ],
+        ).copyWith(
           boxShadow: _hovering
               ? const [
+                  BoxShadow(
+                    color: Color(0x10DBD4C9),
+                    blurRadius: 28,
+                    offset: Offset(0, 18),
+                  ),
                   BoxShadow(
                     color: Color(0x0F000000),
                     blurRadius: 26,
@@ -78,6 +98,8 @@ class _ExperienceCardState extends State<ExperienceCard> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                      const SizedBox(height: 12),
+                      _MiniMeta(label: screenshotLabel),
                     ],
                   ),
                 ),
@@ -112,6 +134,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
               decoration: BoxDecoration(
                 color: const Color(0xFFF9F8F5),
                 borderRadius: BorderRadius.circular(22),
+                border: Border.all(color: const Color(0xFFF0ECE6)),
               ),
               child: Text(
                 project.description,
@@ -148,6 +171,33 @@ class _ExperienceCardState extends State<ExperienceCard> {
               ScreenshotStrip(project: project),
             ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MiniMeta extends StatelessWidget {
+  const _MiniMeta({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F4EE),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: const Color(0xFFE8E1D7)),
+      ),
+      child: Text(
+        label,
+        style: textTheme.labelSmall?.copyWith(
+          color: const Color(0xFF66615C),
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
