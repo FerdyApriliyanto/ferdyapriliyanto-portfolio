@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/projects/experience_card.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/projects/featured_experience_card.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/experiences/experience_card.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/experiences/featured_experience_card.dart';
 
 import '../../widgets/shared/section_title.dart';
 

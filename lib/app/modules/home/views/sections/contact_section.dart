@@ -59,7 +59,7 @@ class ContactSection extends StatelessWidget {
             label: 'Start a Conversation',
             primary: true,
             onTap: () => controller.openUrl(
-              'mailto:ferdya7414@gmail.com?subject=Project Inquiry&body=Hi Ferdy, I would like to discuss...',
+              'mailto:ferdya7414@gmail.com?subject=Project%20Inquiry&body=Hi%20Ferdy%2C%20I%20would%20like%20to%20discuss%20a%20project%20opportunity.',
             ),
           ),
         ],

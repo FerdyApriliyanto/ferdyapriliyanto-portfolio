@@ -6,6 +6,9 @@ import 'package:personal_portfolio/app/models/portfolio_skill.dart';
 import 'package:personal_portfolio/app/services/url_service.dart';
 
 class HomeController extends GetxController {
+  static const String whatsappUrl =
+      'https://wa.me/6281296105392?text=Hi%20Ferdy%2C%20I%20would%20like%20to%20discuss%20a%20project%20opportunity.';
+
   final ScrollController scrollController = ScrollController();
   final RxBool isMenuOpen = false.obs;
   final RxBool isScrolled = false.obs;
@@ -171,12 +174,25 @@ class HomeController extends GetxController {
     closeMenu();
     final context = key.currentContext;
     if (context == null) return;
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.attached || !scrollController.hasClients) return;
 
-    await Scrollable.ensureVisible(
-      context,
-      duration: const Duration(milliseconds: 700),
+    final width = MediaQuery.sizeOf(context).width;
+    final navOffset = width < 760 ? 116.0 : 132.0;
+    final extraSpacing = key == heroKey ? 12.0 : 18.0;
+    final targetOffset =
+        scrollController.offset +
+        box.localToGlobal(Offset.zero).dy -
+        navOffset -
+        extraSpacing;
+
+    await scrollController.animateTo(
+      targetOffset.clamp(
+        scrollController.position.minScrollExtent,
+        scrollController.position.maxScrollExtent,
+      ),
+      duration: const Duration(milliseconds: 720),
       curve: Curves.easeInOutCubic,
-      alignment: 0.08,
     );
 
     _updateActiveSection();

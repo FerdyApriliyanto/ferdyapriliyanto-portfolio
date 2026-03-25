@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
-import 'package:personal_portfolio/app/modules/home/widgets/projects/screenshot_strip.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/experiences/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
 
 class ExperienceCard extends StatefulWidget {

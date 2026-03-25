@@ -178,7 +178,8 @@ class _TopNavigationState extends State<TopNavigation> {
                           width: isScrolled ? 14 : 18,
                         ),
                         GestureDetector(
-                          onTap: widget.onTapContact,
+                          onTap: () =>
+                              controller.openUrl(HomeController.whatsappUrl),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 320),
                             curve: Curves.easeOutCubic,

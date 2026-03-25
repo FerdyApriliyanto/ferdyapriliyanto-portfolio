@@ -98,7 +98,9 @@ class MobileMenuOverlay extends StatelessWidget {
                                 SizedBox(
                                   width: double.infinity,
                                   child: FilledButton(
-                                    onPressed: onTapContact,
+                                    onPressed: () => controller.openUrl(
+                                      HomeController.whatsappUrl,
+                                    ),
                                     style: FilledButton.styleFrom(
                                       backgroundColor: const Color(0xFF1A1A1A),
                                       foregroundColor: Colors.white,
