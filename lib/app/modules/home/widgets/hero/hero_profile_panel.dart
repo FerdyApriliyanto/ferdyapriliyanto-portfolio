@@ -8,11 +8,12 @@ class HeroProfilePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(isMobile ? 18 : 24),
       decoration: BoxDecoration(
         color: AppColors.surfaceSoft,
         borderRadius: BorderRadius.circular(30),
@@ -26,26 +27,35 @@ class HeroProfilePanel extends StatelessWidget {
             style: textTheme.labelLarge?.copyWith(
               color: AppColors.textMuted,
               fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
+              letterSpacing: 0.3,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: isMobile ? 12 : 16),
           Text(
             summary,
-            style: textTheme.titleLarge?.copyWith(
-              fontSize: 24,
-              height: 1.38,
+            style: (isMobile ? textTheme.titleMedium : textTheme.titleLarge)
+                ?.copyWith(
+              fontSize: isMobile ? 18 : 24,
+              height: isMobile ? 1.45 : 1.38,
               fontWeight: FontWeight.w500,
               color: AppColors.textPrimary,
-              letterSpacing: -0.5,
+              letterSpacing: isMobile ? -0.25 : -0.5,
             ),
           ),
-          const SizedBox(height: 22),
-          const _MetricRow(label: 'Experience', value: '3+ years'),
-          const SizedBox(height: 14),
-          const _MetricRow(label: 'Core stack', value: 'Flutter, GetX, Firebase'),
-          const SizedBox(height: 14),
-          const _MetricRow(label: 'Focus', value: 'Production mobile apps'),
+          SizedBox(height: isMobile ? 18 : 22),
+          _MetricRow(label: 'Experience', value: '3+ years', compact: isMobile),
+          SizedBox(height: isMobile ? 12 : 14),
+          _MetricRow(
+            label: 'Core stack',
+            value: 'Flutter, GetX, Firebase',
+            compact: isMobile,
+          ),
+          SizedBox(height: isMobile ? 12 : 14),
+          _MetricRow(
+            label: 'Focus',
+            value: 'Production mobile apps',
+            compact: isMobile,
+          ),
         ],
       ),
     );
@@ -53,14 +63,49 @@ class HeroProfilePanel extends StatelessWidget {
 }
 
 class _MetricRow extends StatelessWidget {
-  const _MetricRow({required this.label, required this.value});
+  const _MetricRow({
+    required this.label,
+    required this.value,
+    required this.compact,
+  });
 
   final String label;
   final String value;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    if (compact) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 92,
+            child: Text(
+              label,
+              style: textTheme.bodyMedium?.copyWith(
+                color: AppColors.textMuted,
+                fontWeight: FontWeight.w600,
+                height: 1.3,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              value,
+              style: textTheme.bodyMedium?.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+                height: 1.3,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
 
     return Row(
       children: [
