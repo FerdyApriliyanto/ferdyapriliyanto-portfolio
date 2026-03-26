@@ -39,10 +39,12 @@ class _TopNavigationState extends State<TopNavigation> {
       child: Obx(
         () {
           final isScrolled = controller.isScrolled.value;
+          final shouldUseGlass = !isMobile && isScrolled;
           final borderRadius = BorderRadius.circular(isScrolled ? 26 : 20);
+          final shellDuration = Duration(milliseconds: isMobile ? 260 : 420);
 
           return AnimatedContainer(
-            duration: const Duration(milliseconds: 420),
+            duration: shellDuration,
             curve: Curves.easeOutCubic,
             padding: EdgeInsets.symmetric(
               horizontal: isScrolled
@@ -56,10 +58,10 @@ class _TopNavigationState extends State<TopNavigation> {
               borderRadius: borderRadius,
               boxShadow: [
                 BoxShadow(
-                  color: isScrolled
+                  color: shouldUseGlass
                       ? AppColors.shadowSoft.withValues(alpha: 0.12)
                       : Colors.transparent,
-                  blurRadius: isScrolled ? 28 : 0,
+                  blurRadius: shouldUseGlass ? 28 : 0,
                   offset: const Offset(0, 16),
                 ),
               ],
@@ -68,11 +70,11 @@ class _TopNavigationState extends State<TopNavigation> {
               borderRadius: borderRadius,
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                  sigmaX: isScrolled ? 18 : 0,
-                  sigmaY: isScrolled ? 18 : 0,
+                  sigmaX: shouldUseGlass ? 18 : 0,
+                  sigmaY: shouldUseGlass ? 18 : 0,
                 ),
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 420),
+                  duration: shellDuration,
                   curve: Curves.easeOutCubic,
                   padding: EdgeInsets.symmetric(
                     horizontal: isScrolled
@@ -83,14 +85,14 @@ class _TopNavigationState extends State<TopNavigation> {
                         : 8,
                   ),
                   decoration: BoxDecoration(
-                    color: isScrolled
+                    color: shouldUseGlass
                         ? AppColors.surface.withValues(alpha: 0.66)
-                        : AppColors.surfaceTransparent,
+                        : AppColors.surface,
                     borderRadius: borderRadius,
                     border: Border.all(
-                      color: isScrolled
+                      color: shouldUseGlass
                           ? AppColors.border.withValues(alpha: 0.75)
-                          : AppColors.borderTransparent,
+                          : AppColors.borderMuted,
                     ),
                   ),
                   child: Row(

@@ -27,16 +27,24 @@ class HomeView extends GetView<HomeController> {
         decoration: const BoxDecoration(gradient: AppGradients.pageBackground),
         child: Stack(
           children: [
-            const Positioned(
-              top: -120,
-              right: -80,
-              child: _AmbientGlow(color: AppColors.ambientGlowPrimary, size: 320),
-            ),
-            const Positioned(
-              top: 520,
-              left: -100,
-              child: _AmbientGlow(color: AppColors.ambientGlowSecondary, size: 260),
-            ),
+            if (!isMobile) ...[
+              const Positioned(
+                top: -120,
+                right: -80,
+                child: _AmbientGlow(
+                  color: AppColors.ambientGlowPrimary,
+                  size: 320,
+                ),
+              ),
+              const Positioned(
+                top: 520,
+                left: -100,
+                child: _AmbientGlow(
+                  color: AppColors.ambientGlowSecondary,
+                  size: 260,
+                ),
+              ),
+            ],
             SafeArea(
               child: Stack(
                 children: [

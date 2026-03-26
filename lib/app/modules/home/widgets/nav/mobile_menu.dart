@@ -25,6 +25,8 @@ class MobileMenuOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final width = MediaQuery.sizeOf(context).width;
+    final useGlass = width >= 760;
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 250),
@@ -53,20 +55,30 @@ class MobileMenuOverlay extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(28),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                          filter: ImageFilter.blur(
+                            sigmaX: useGlass ? 18 : 0,
+                            sigmaY: useGlass ? 18 : 0,
+                          ),
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              gradient: AppGradients.mobileMenuSurface,
+                              gradient: useGlass
+                                  ? AppGradients.mobileMenuSurface
+                                  : null,
+                              color: useGlass
+                                  ? null
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(28),
                               border: Border.all(color: AppColors.borderMuted),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: AppColors.shadowMuted,
-                                  blurRadius: 32,
-                                  offset: Offset(0, 12),
-                                ),
-                              ],
+                              boxShadow: useGlass
+                                  ? const [
+                                      BoxShadow(
+                                        color: AppColors.shadowMuted,
+                                        blurRadius: 32,
+                                        offset: Offset(0, 12),
+                                      ),
+                                    ]
+                                  : null,
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
