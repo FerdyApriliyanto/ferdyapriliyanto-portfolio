@@ -57,7 +57,14 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
       child: Column(
         mainAxisAlignment: .center,
         children: [
-          if (isLandscape)
+          if (isMobile)
+            _SinglePreview(
+              screenshots: screenshots,
+              current: _current,
+              screenshotType: widget.project.screenshotType,
+              onTap: () => _openLightbox(context, _current),
+            )
+          else if (isLandscape)
             _LandscapePreview(
               screenshots: screenshots,
               current: _current,
@@ -96,6 +103,45 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _SinglePreview extends StatelessWidget {
+  const _SinglePreview({
+    required this.screenshots,
+    required this.current,
+    required this.screenshotType,
+    required this.onTap,
+  });
+
+  final List<String> screenshots;
+  final int current;
+  final ScreenshotType screenshotType;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isLandscape = screenshotType == ScreenshotType.landscape;
+        final previewWidth = constraints.maxWidth;
+        final previewHeight = isLandscape
+            ? (previewWidth / 1.625).clamp(180.0, 240.0)
+            : (previewWidth * 1.42).clamp(240.0, 420.0);
+
+        return Center(
+          child: SizedBox(
+            width: previewWidth,
+            child: _StripPhone(
+              assetPath: screenshots[current],
+              height: previewHeight,
+              screenshotType: screenshotType,
+              onTap: onTap,
+            ),
+          ),
+        );
+      },
     );
   }
 }

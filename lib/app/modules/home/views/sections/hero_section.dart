@@ -64,7 +64,7 @@ class _HeroSectionState extends State<HeroSection>
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(40),
             border: Border.all(color: AppColors.border),
-            boxShadow: AppShadows.softPanel,
+            boxShadow: isMobile ? null : AppShadows.softPanel,
           ),
           child: isMobile
               ? HeroMobile(

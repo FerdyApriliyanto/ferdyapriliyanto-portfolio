@@ -110,13 +110,15 @@ class _HighlightPill extends StatelessWidget {
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(22),
         border: Border.all(color: AppColors.borderMuted),
-        boxShadow: [
-          BoxShadow(
-            color: tone.withValues(alpha: 0.9),
-            blurRadius: 18,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        boxShadow: compact
+            ? null
+            : [
+                BoxShadow(
+                  color: tone.withValues(alpha: 0.9),
+                  blurRadius: 18,
+                  offset: const Offset(0, 10),
+                ),
+              ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

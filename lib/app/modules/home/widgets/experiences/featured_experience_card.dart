@@ -30,7 +30,7 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
       gradient: AppGradients.heroSurface,
       borderRadius: BorderRadius.circular(34),
       border: Border.all(color: AppColors.border),
-      boxShadow: isMobile ? AppShadows.card : AppShadows.featuredCard,
+      boxShadow: isMobile ? null : AppShadows.featuredCard,
     ).copyWith(
       boxShadow: !isMobile && _hovering ? AppShadows.featuredCardHover : null,
     );

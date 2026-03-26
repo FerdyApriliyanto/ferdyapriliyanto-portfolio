@@ -37,7 +37,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
       gradient: AppGradients.cardSurface,
       borderRadius: BorderRadius.circular(30),
       border: Border.all(color: AppColors.border),
-      boxShadow: AppShadows.card,
+      boxShadow: isMobile ? null : AppShadows.card,
     ).copyWith(boxShadow: !isMobile && _hovering ? AppShadows.cardHover : null);
 
     final content = Column(
