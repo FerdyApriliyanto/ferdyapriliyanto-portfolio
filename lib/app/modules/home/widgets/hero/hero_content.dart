@@ -161,10 +161,10 @@ class HeroMobile extends StatelessWidget {
           name,
           style: textTheme.displayLarge?.copyWith(
             fontSize: 46,
-            height: 0.96,
+            height: 1.02,
             fontWeight: FontWeight.w700,
             color: AppColors.textStrong,
-            letterSpacing: -1.8,
+            letterSpacing: -1.4,
           ),
         ),
         const SizedBox(height: 12),
