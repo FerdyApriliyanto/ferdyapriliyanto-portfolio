@@ -24,11 +24,13 @@ class PhoneMockup extends StatelessWidget {
     final radiusBase = screenshotType == ScreenshotType.landscape
         ? height
         : width;
+    final screenRadius = BorderRadius.circular(radiusBase * 0.11);
 
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(radiusBase * 0.12),
         border: lightBackground
             ? null
@@ -44,11 +46,16 @@ class PhoneMockup extends StatelessWidget {
               ],
       ),
       clipBehavior: Clip.antiAlias,
-      child: Image.asset(
-        assetPath,
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-        filterQuality: FilterQuality.low,
+      child: Center(
+        child: ClipRRect(
+          borderRadius: screenRadius,
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.contain,
+            alignment: Alignment.center,
+            filterQuality: FilterQuality.low,
+          ),
+        ),
       ),
     );
   }

@@ -76,6 +76,7 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
               screenshots: screenshots,
               current: _current,
               screenshotType: widget.project.screenshotType,
+              tightSpacing: widget.project.title == 'HiredToday',
               onTap: (index) => _openLightbox(context, index),
             ),
           SizedBox(height: isLandscape ? 24 : 16),
@@ -125,10 +126,12 @@ class _SinglePreview extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isLandscape = screenshotType == ScreenshotType.landscape;
-        final previewWidth = constraints.maxWidth;
+        final previewWidth = isLandscape
+            ? constraints.maxWidth
+            : (constraints.maxWidth * 0.78).clamp(180.0, constraints.maxWidth);
         final previewHeight = isLandscape
             ? (previewWidth / 1.625).clamp(180.0, 240.0)
-            : (previewWidth * 1.42).clamp(240.0, 420.0);
+            : (previewWidth * 2.02).clamp(320.0, 420.0);
 
         return Center(
           child: SizedBox(
@@ -151,12 +154,14 @@ class _PortraitPreviewStrip extends StatelessWidget {
     required this.screenshots,
     required this.current,
     required this.screenshotType,
+    required this.tightSpacing,
     required this.onTap,
   });
 
   final List<String> screenshots;
   final int current;
   final ScreenshotType screenshotType;
+  final bool tightSpacing;
   final ValueChanged<int> onTap;
 
   @override
@@ -167,7 +172,9 @@ class _PortraitPreviewStrip extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final availableWidth = (constraints.maxWidth - 16) / 3;
+        final gap = tightSpacing ? 0.0 : 8.0;
+        final overlap = tightSpacing ? 18.0 : 0.0;
+        final availableWidth = (constraints.maxWidth - (gap * 2)) / 3;
         final centerHeight = availableWidth * 1.82;
         final sideHeight = centerHeight * 0.82;
         final offset = (centerHeight - sideHeight) / 2;
@@ -180,7 +187,7 @@ class _PortraitPreviewStrip extends StatelessWidget {
             children: [
               Expanded(
                 child: Transform.translate(
-                  offset: Offset(0, offset),
+                  offset: Offset(overlap, offset),
                   child: _StripPhone(
                     assetPath: screenshots[prev],
                     height: sideHeight,
@@ -189,7 +196,7 @@ class _PortraitPreviewStrip extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: gap),
               Expanded(
                 child: _StripPhone(
                   assetPath: screenshots[current],
@@ -198,10 +205,10 @@ class _PortraitPreviewStrip extends StatelessWidget {
                   onTap: () => onTap(current),
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: gap),
               Expanded(
                 child: Transform.translate(
-                  offset: Offset(0, offset),
+                  offset: Offset(-overlap, offset),
                   child: _StripPhone(
                     assetPath: screenshots[next],
                     height: sideHeight,
