@@ -28,29 +28,19 @@ class _ExperienceCardState extends State<ExperienceCard> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
     final project = widget.project;
     final screenshotLabel = project.screenshotType == ScreenshotType.landscape
         ? 'Landscape deck'
         : 'App screens';
+    final cardDecoration = BoxDecoration(
+      gradient: AppGradients.cardSurface,
+      borderRadius: BorderRadius.circular(30),
+      border: Border.all(color: AppColors.border),
+      boxShadow: AppShadows.card,
+    ).copyWith(boxShadow: !isMobile && _hovering ? AppShadows.cardHover : null);
 
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovering = true),
-      onExit: (_) => setState(() => _hovering = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
-        curve: Curves.easeOut,
-        transform: Matrix4.identity()
-          ..translateByDouble(0, _hovering ? -5 : 0, 0, 1),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: AppGradients.cardSurface,
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: AppColors.border),
-          boxShadow: AppShadows.card,
-        ).copyWith(
-          boxShadow: _hovering ? AppShadows.cardHover : const [],
-        ),
-        child: Column(
+    final content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -151,7 +141,27 @@ class _ExperienceCardState extends State<ExperienceCard> {
               ScreenshotStrip(project: project),
             ],
           ],
-        ),
+        );
+
+    if (isMobile) {
+      return Container(
+        padding: const EdgeInsets.all(20),
+        decoration: cardDecoration,
+        child: content,
+      );
+    }
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOut,
+        transform: Matrix4.identity()
+          ..translateByDouble(0, _hovering ? -5 : 0, 0, 1),
+        padding: const EdgeInsets.all(20),
+        decoration: cardDecoration,
+        child: content,
       ),
     );
   }

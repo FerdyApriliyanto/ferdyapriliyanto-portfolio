@@ -20,6 +20,7 @@ class PhoneMockup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
     final radiusBase = screenshotType == ScreenshotType.landscape
         ? height
         : width;
@@ -32,19 +33,22 @@ class PhoneMockup extends StatelessWidget {
         border: lightBackground
             ? null
             : Border.all(color: AppColors.borderMuted, width: 1.5),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.shadowMuted,
-            blurRadius: 24,
-            offset: Offset(0, 10),
-          ),
-        ],
+        boxShadow: isMobile
+            ? null
+            : const [
+                BoxShadow(
+                  color: AppColors.shadowMuted,
+                  blurRadius: 24,
+                  offset: Offset(0, 10),
+                ),
+              ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Image.asset(
         assetPath,
         fit: BoxFit.cover,
         alignment: Alignment.topCenter,
+        filterQuality: FilterQuality.low,
       ),
     );
   }

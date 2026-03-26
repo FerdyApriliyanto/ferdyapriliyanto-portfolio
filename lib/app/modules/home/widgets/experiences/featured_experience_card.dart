@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
@@ -27,6 +26,30 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
     final isTablet = MediaQuery.sizeOf(context).width < 1040;
     final project = widget.project;
     final hasScreenshots = project.screenshots.isNotEmpty;
+    final cardDecoration = BoxDecoration(
+      gradient: AppGradients.heroSurface,
+      borderRadius: BorderRadius.circular(34),
+      border: Border.all(color: AppColors.border),
+      boxShadow: isMobile ? AppShadows.card : AppShadows.featuredCard,
+    ).copyWith(
+      boxShadow: !isMobile && _hovering ? AppShadows.featuredCardHover : null,
+    );
+
+    final child = isMobile
+        ? _FeaturedCardMobile(project: project)
+        : _FeaturedCardDesktop(
+            project: project,
+            hasScreenshots: hasScreenshots,
+            compactInfo: isTablet,
+          );
+
+    if (isMobile) {
+      return Container(
+        padding: const EdgeInsets.all(20),
+        decoration: cardDecoration,
+        child: child,
+      );
+    }
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
@@ -36,22 +59,9 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
         curve: Curves.easeOut,
         transform: Matrix4.identity()
           ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),
-        padding: EdgeInsets.all(isMobile ? 20 : 24),
-        decoration: BoxDecoration(
-          gradient: AppGradients.heroSurface,
-          borderRadius: BorderRadius.circular(34),
-          border: Border.all(color: AppColors.border),
-          boxShadow: AppShadows.featuredCard,
-        ).copyWith(
-          boxShadow: _hovering ? AppShadows.featuredCardHover : const [],
-        ),
-        child: isMobile
-            ? _FeaturedCardMobile(project: project)
-            : _FeaturedCardDesktop(
-                project: project,
-                hasScreenshots: hasScreenshots,
-                compactInfo: isTablet,
-              ),
+        padding: const EdgeInsets.all(24),
+        decoration: cardDecoration,
+        child: child,
       ),
     );
   }
@@ -207,7 +217,6 @@ class _FeaturedCardInfo extends StatelessWidget {
                           appName: project.title,
                           label: project.externalLabel,
                           variant: _StoreButtonVariant.googlePlay,
-                          icon: FontAwesomeIcons.googlePlay,
                           fillWidth: true,
                           onTap: () => Get.find<HomeController>().openUrl(
                             project.externalUrl,
@@ -220,7 +229,6 @@ class _FeaturedCardInfo extends StatelessWidget {
                           appName: project.title,
                           label: project.secondaryExternalLabel,
                           variant: _StoreButtonVariant.appStore,
-                          icon: FontAwesomeIcons.appStoreIos,
                           fillWidth: true,
                           onTap: () => Get.find<HomeController>().openUrl(
                             project.secondaryExternalUrl,
@@ -239,7 +247,6 @@ class _FeaturedCardInfo extends StatelessWidget {
                           appName: project.title,
                           label: project.externalLabel,
                           variant: _StoreButtonVariant.googlePlay,
-                          icon: FontAwesomeIcons.googlePlay,
                           onTap: () => Get.find<HomeController>().openUrl(
                             project.externalUrl,
                           ),
@@ -249,7 +256,6 @@ class _FeaturedCardInfo extends StatelessWidget {
                           appName: project.title,
                           label: project.secondaryExternalLabel,
                           variant: _StoreButtonVariant.appStore,
-                          icon: FontAwesomeIcons.appStoreIos,
                           onTap: () => Get.find<HomeController>().openUrl(
                             project.secondaryExternalUrl,
                           ),
@@ -342,7 +348,6 @@ class _StoreButton extends StatefulWidget {
     required this.appName,
     required this.label,
     required this.variant,
-    required this.icon,
     required this.onTap,
     this.fillWidth = false,
   });
@@ -350,7 +355,6 @@ class _StoreButton extends StatefulWidget {
   final String appName;
   final String label;
   final _StoreButtonVariant variant;
-  final FaIconData icon;
   final VoidCallback onTap;
   final bool fillWidth;
 
@@ -364,6 +368,7 @@ class _StoreButtonState extends State<_StoreButton> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
     final isGooglePlay = widget.variant == _StoreButtonVariant.googlePlay;
     final gradientColors = isGooglePlay
         ? (_hovering
@@ -408,7 +413,7 @@ class _StoreButtonState extends State<_StoreButton> {
             ),
             borderRadius: BorderRadius.circular(18),
             border: Border.all(color: borderColor),
-            boxShadow: _hovering
+            boxShadow: !isMobile && _hovering
                 ? [
                     BoxShadow(
                       color: isGooglePlay
@@ -435,9 +440,8 @@ class _StoreButtonState extends State<_StoreButton> {
                   ),
                 ),
                 alignment: Alignment.center,
-                child: FaIcon(
-                  widget.icon,
-                  size: 16,
+                child: _StoreLogo(
+                  variant: widget.variant,
                   color: iconColor,
                 ),
               ),
@@ -489,5 +493,21 @@ class _StoreButtonState extends State<_StoreButton> {
         ),
       ),
     );
+  }
+}
+
+class _StoreLogo extends StatelessWidget {
+  const _StoreLogo({required this.variant, required this.color});
+
+  final _StoreButtonVariant variant;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    if (variant == _StoreButtonVariant.appStore) {
+      return Icon(Icons.apple_rounded, size: 18, color: color);
+    }
+
+    return Icon(Icons.play_arrow_rounded, size: 18, color: color);
   }
 }

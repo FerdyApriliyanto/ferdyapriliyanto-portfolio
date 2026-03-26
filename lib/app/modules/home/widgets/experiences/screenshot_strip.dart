@@ -31,6 +31,7 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
     final screenshots = widget.project.screenshots;
     final total = screenshots.length;
     final isLandscape =
@@ -38,7 +39,10 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 18 : 24,
+        horizontal: isMobile ? 12 : 16,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
@@ -236,31 +240,38 @@ class _StripPhoneState extends State<_StripPhone> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hovering = true),
-      onExit: (_) => setState(() => _hovering = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return AnimatedContainer(
+    final isMobile = MediaQuery.sizeOf(context).width < 760;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final phone = PhoneMockup(
+          key: ValueKey(widget.assetPath),
+          assetPath: widget.assetPath,
+          width: constraints.maxWidth,
+          height: widget.height,
+          screenshotType: widget.screenshotType,
+          lightBackground: true,
+        );
+
+        if (isMobile) {
+          return GestureDetector(onTap: widget.onTap, child: phone);
+        }
+
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          onEnter: (_) => setState(() => _hovering = true),
+          onExit: (_) => setState(() => _hovering = false),
+          child: GestureDetector(
+            onTap: widget.onTap,
+            child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeOut,
               transform: Matrix4.identity()
                 ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),
-              child: PhoneMockup(
-                key: ValueKey(widget.assetPath),
-                assetPath: widget.assetPath,
-                width: constraints.maxWidth,
-                height: widget.height,
-                screenshotType: widget.screenshotType,
-                lightBackground: true,
-              ),
-            );
-          },
-        ),
-      ),
+              child: phone,
+            ),
+          ),
+        );
+      },
     );
   }
 }
