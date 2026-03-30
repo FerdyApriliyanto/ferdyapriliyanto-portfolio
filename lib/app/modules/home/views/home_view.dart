@@ -9,12 +9,22 @@ import 'package:personal_portfolio/app/modules/home/views/sections/projects_sect
 import 'package:personal_portfolio/app/modules/home/views/sections/skills_section.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/nav/mobile_menu.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/nav/top_navigation.dart';
+import 'package:personal_portfolio/app/modules/home/widgets/shared/home_preloader.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_shell.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const HomePreloader(child: _HomeContent());
+  }
+}
+
+class _HomeContent extends GetView<HomeController> {
+  const _HomeContent();
 
   @override
   Widget build(BuildContext context) {
