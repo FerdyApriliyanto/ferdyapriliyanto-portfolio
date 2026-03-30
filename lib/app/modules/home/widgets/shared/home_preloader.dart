@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_shadows.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class HomePreloader extends StatefulWidget {
   const HomePreloader({required this.child, super.key});
@@ -16,7 +19,7 @@ class _HomePreloaderState extends State<HomePreloader>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulseController = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1400),
+    duration: AppDurations.pulse,
   )..repeat();
 
   bool _visible = true;
@@ -48,7 +51,7 @@ class _HomePreloaderState extends State<HomePreloader>
           ignoring: !_visible,
           child: AnimatedOpacity(
             opacity: _visible ? 1 : 0,
-            duration: const Duration(milliseconds: 420),
+            duration: AppDurations.medium,
             curve: Curves.easeOutCubic,
             child: DecoratedBox(
               decoration: const BoxDecoration(
@@ -58,12 +61,12 @@ class _HomePreloaderState extends State<HomePreloader>
                 child: Container(
                   width: isMobile ? 220 : 280,
                   padding: EdgeInsets.symmetric(
-                    horizontal: isMobile ? 24 : 28,
-                    vertical: isMobile ? 24 : 28,
+                    horizontal: isMobile ? AppSpacing.xl : AppSpacing.xxl,
+                    vertical: isMobile ? AppSpacing.xl : AppSpacing.xxl,
                   ),
                   decoration: BoxDecoration(
                     gradient: AppGradients.heroSurface,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(AppRadius.large),
                     border: Border.all(color: AppColors.borderMuted),
                     boxShadow: AppShadows.softPanel,
                   ),
@@ -96,7 +99,7 @@ class _HomePreloaderState extends State<HomePreloader>
                           ),
                         ),
                       ),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: AppSpacing.lg),
                       Text(
                         'Preparing portfolio',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -104,7 +107,7 @@ class _HomePreloaderState extends State<HomePreloader>
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: AppSpacing.sm),
                       Text(
                         'Loading selected work and polished mobile details.',
                         textAlign: TextAlign.center,
@@ -113,7 +116,7 @@ class _HomePreloaderState extends State<HomePreloader>
                           height: 1.5,
                         ),
                       ),
-                      const SizedBox(height: 18),
+                      const SizedBox(height: AppSpacing.lg),
                       AnimatedBuilder(
                         animation: _pulseController,
                         builder: (context, _) {
@@ -127,15 +130,19 @@ class _HomePreloaderState extends State<HomePreloader>
                               final active = phase < 0.5;
 
                               return AnimatedContainer(
-                                duration: const Duration(milliseconds: 180),
-                                margin: const EdgeInsets.symmetric(horizontal: 4),
+                                duration: AppDurations.fast,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.xs,
+                                ),
                                 width: active ? 18 : 8,
                                 height: 6,
                                 decoration: BoxDecoration(
                                   color: active
                                       ? AppColors.textPrimary
                                       : AppColors.borderAccent,
-                                  borderRadius: BorderRadius.circular(999),
+                                  borderRadius: BorderRadius.circular(
+                                    AppRadius.pill,
+                                  ),
                                 ),
                               );
                             }),

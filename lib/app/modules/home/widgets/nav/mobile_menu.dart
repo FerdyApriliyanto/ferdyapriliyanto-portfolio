@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 import '../../controllers/home_controller.dart';
 
@@ -29,7 +32,7 @@ class MobileMenuOverlay extends StatelessWidget {
     final useGlass = width >= 760;
 
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 250),
+      duration: AppDurations.fast,
       transitionBuilder: (child, animation) => FadeTransition(
         opacity: animation,
         child: SlideTransition(
@@ -51,9 +54,14 @@ class MobileMenuOverlay extends StatelessWidget {
                   onTap: () {},
                   child: SafeArea(
                     child: Container(
-                      margin: const EdgeInsets.fromLTRB(16, 84, 16, 0),
+                      margin: const EdgeInsets.fromLTRB(
+                        16,
+                        84,
+                        16,
+                        0,
+                      ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(28),
+                        borderRadius: BorderRadius.circular(AppRadius.large),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(
                             sigmaX: useGlass ? 18 : 0,
@@ -68,7 +76,7 @@ class MobileMenuOverlay extends StatelessWidget {
                               color: useGlass
                                   ? null
                                   : AppColors.surface,
-                              borderRadius: BorderRadius.circular(28),
+                              borderRadius: BorderRadius.circular(AppRadius.large),
                               border: Border.all(color: AppColors.borderMuted),
                               boxShadow: useGlass
                                   ? const [
@@ -104,7 +112,7 @@ class MobileMenuOverlay extends StatelessWidget {
                                       controller.activeSection.value == 'contact',
                                   onTap: onTapContact,
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: AppSpacing.sm),
                                 SizedBox(
                                   width: double.infinity,
                                   child: FilledButton(
@@ -118,7 +126,9 @@ class MobileMenuOverlay extends StatelessWidget {
                                         vertical: 15,
                                       ),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18),
+                                        borderRadius: BorderRadius.circular(
+                                          AppSpacing.lg,
+                                        ),
                                       ),
                                     ),
                                     child: const Text('Let\'s talk'),

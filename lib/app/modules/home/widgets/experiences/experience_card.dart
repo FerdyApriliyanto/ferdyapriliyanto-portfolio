@@ -3,8 +3,11 @@ import 'package:personal_portfolio/app/models/portfolio_project.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_shadows.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class ExperienceCard extends StatefulWidget {
   const ExperienceCard({
@@ -35,7 +38,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
         : 'App screens';
     final cardDecoration = BoxDecoration(
       gradient: AppGradients.cardSurface,
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(AppRadius.large),
       border: Border.all(color: AppColors.border),
       boxShadow: isMobile ? null : AppShadows.card,
     ).copyWith(boxShadow: !isMobile && _hovering ? AppShadows.cardHover : null);
@@ -60,7 +63,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                           height: 1.15,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: AppSpacing.sm),
                       Text(
                         project.subtitle,
                         style: textTheme.titleSmall?.copyWith(
@@ -68,7 +71,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: AppSpacing.md),
                       _MiniMeta(label: screenshotLabel),
                     ],
                   ),
@@ -80,7 +83,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                     width: widget.compact ? 72 : 86,
                     height: widget.compact ? 72 : 86,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(AppRadius.medium),
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -97,7 +100,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                 ),
               ],
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: AppSpacing.lg),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -124,7 +127,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                 ),
                 decoration: BoxDecoration(
                   color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(AppRadius.pill),
                   border: Border.all(color: AppColors.borderMuted),
                 ),
                 child: Text(
@@ -155,11 +158,11 @@ class _ExperienceCardState extends State<ExperienceCard> {
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
+        duration: AppDurations.fast,
         curve: Curves.easeOut,
         transform: Matrix4.identity()
           ..translateByDouble(0, _hovering ? -5 : 0, 0, 1),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(AppSpacing.pageMobile),
         decoration: cardDecoration,
         child: content,
       ),
@@ -180,7 +183,7 @@ class _MiniMeta extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
       decoration: BoxDecoration(
         color: const Color(0xFFF7F4EE),
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
         border: Border.all(color: const Color(0xFFE8E1D7)),
       ),
       child: Text(

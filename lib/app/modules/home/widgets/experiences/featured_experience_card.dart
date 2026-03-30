@@ -5,8 +5,11 @@ import 'package:personal_portfolio/app/modules/home/controllers/home_controller.
 import 'package:personal_portfolio/app/modules/home/widgets/experiences/screenshot_strip.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/shared/section_token.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_shadows.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class FeaturedExperienceCard extends StatefulWidget {
   const FeaturedExperienceCard({required this.project, super.key});
@@ -45,7 +48,7 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
 
     if (isMobile) {
       return Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(AppSpacing.pageMobile),
         decoration: cardDecoration,
         child: child,
       );
@@ -55,11 +58,11 @@ class _FeaturedExperienceCardState extends State<FeaturedExperienceCard> {
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
+        duration: AppDurations.fast,
         curve: Curves.easeOut,
         transform: Matrix4.identity()
           ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(AppSpacing.xl),
         decoration: cardDecoration,
         child: child,
       ),
@@ -90,7 +93,7 @@ class _FeaturedCardDesktop extends StatelessWidget {
         Expanded(
           child: SizedBox(child: ScreenshotStrip(project: project)),
         ),
-        const SizedBox(width: 28),
+        const SizedBox(width: AppSpacing.xxl),
         Expanded(
           child: _FeaturedCardInfo(
             project: project,
@@ -115,7 +118,7 @@ class _FeaturedCardMobile extends StatelessWidget {
       children: [
         _FeaturedCardInfo(project: project, featured: true),
         if (project.screenshots.isNotEmpty) ...[
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.xl),
           ScreenshotStrip(project: project),
         ],
       ],
@@ -148,7 +151,7 @@ class _FeaturedCardInfo extends StatelessWidget {
         final useSplitCtas = constraints.maxWidth >= 520;
 
         return Padding(
-          padding: const EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: AppSpacing.sm),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -175,7 +178,7 @@ class _FeaturedCardInfo extends StatelessWidget {
                   letterSpacing: -0.8,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               Text(
                 project.subtitle,
                 style: textTheme.titleMedium?.copyWith(
@@ -184,7 +187,7 @@ class _FeaturedCardInfo extends StatelessWidget {
                   height: 1.3,
                 ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: AppSpacing.lg),
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
@@ -199,7 +202,7 @@ class _FeaturedCardInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.xl),
               Text(
                 project.description,
                 style: textTheme.bodyLarge?.copyWith(
@@ -208,7 +211,7 @@ class _FeaturedCardInfo extends StatelessWidget {
                 ),
               ),
               if (hasGooglePlayUrl || hasAppStoreUrl) ...[
-                const SizedBox(height: 28),
+                const SizedBox(height: AppSpacing.xxl),
                 if (useSplitCtas && hasGooglePlayUrl && hasAppStoreUrl)
                   Row(
                     children: [
@@ -223,7 +226,7 @@ class _FeaturedCardInfo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: AppSpacing.md),
                       Expanded(
                         child: _StoreButton(
                           appName: project.title,
@@ -239,8 +242,8 @@ class _FeaturedCardInfo extends StatelessWidget {
                   )
                 else
                   Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
+                    spacing: AppSpacing.md,
+                    runSpacing: AppSpacing.md,
                     children: [
                       if (hasGooglePlayUrl)
                         _StoreButton(
@@ -285,14 +288,14 @@ class _InfoChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
         border: Border.all(color: AppColors.borderSoft),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 15, color: AppColors.textSecondary),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.sm),
           Text(
             label,
             style: textTheme.bodySmall?.copyWith(
@@ -320,7 +323,7 @@ class _MicroBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.brandDark,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -401,7 +404,7 @@ class _StoreButtonState extends State<_StoreButton> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
+          duration: AppDurations.fast,
           curve: Curves.easeOutCubic,
           width: widget.fillWidth ? double.infinity : null,
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -411,7 +414,7 @@ class _StoreButtonState extends State<_StoreButton> {
               end: Alignment.bottomRight,
               colors: gradientColors,
             ),
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(AppSpacing.lg),
             border: Border.all(color: borderColor),
             boxShadow: !isMobile && _hovering
                 ? [
@@ -434,7 +437,7 @@ class _StoreButtonState extends State<_StoreButton> {
                 height: 34,
                 decoration: BoxDecoration(
                   color: iconSurfaceColor,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(AppSpacing.md),
                   border: Border.all(
                     color: iconBorderColor,
                   ),
@@ -445,7 +448,7 @@ class _StoreButtonState extends State<_StoreButton> {
                   color: iconColor,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

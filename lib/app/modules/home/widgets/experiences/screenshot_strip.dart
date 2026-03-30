@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/models/portfolio_project.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 import '../shared/carousel_controls.dart';
 import '../shared/phone_mockup.dart';
@@ -40,11 +43,11 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        vertical: isMobile ? 18 : 24,
-        horizontal: isMobile ? 12 : 16,
+        vertical: isMobile ? AppSpacing.lg : AppSpacing.xl,
+        horizontal: isMobile ? AppSpacing.md : 16,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(AppRadius.medium),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -79,7 +82,7 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
               tightSpacing: widget.project.title == 'HiredToday',
               onTap: (index) => _openLightbox(context, index),
             ),
-          SizedBox(height: isLandscape ? 24 : 16),
+          SizedBox(height: isLandscape ? AppSpacing.xl : 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -89,12 +92,12 @@ class _ScreenshotStripState extends State<ScreenshotStrip> {
                     setState(() => _current = (_current - 1 + total) % total),
                 tinted: true,
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.md),
               ...List.generate(
                 total,
                 (i) => DotIndicator(active: i == _current, tinted: true),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.md),
               CarouselButton(
                 icon: Icons.chevron_right_rounded,
                 onTap: () => setState(() => _current = (_current + 1) % total),
@@ -316,7 +319,7 @@ class _StripPhoneState extends State<_StripPhone> {
           child: GestureDetector(
             onTap: widget.onTap,
             child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
+              duration: AppDurations.fast,
               curve: Curves.easeOut,
               transform: Matrix4.identity()
                 ..translateByDouble(0, _hovering ? -6 : 0, 0, 1),

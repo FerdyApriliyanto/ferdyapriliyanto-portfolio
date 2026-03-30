@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_shadows.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class PortfolioButton extends StatefulWidget {
   const PortfolioButton({
@@ -33,9 +36,12 @@ class _PortfolioButtonState extends State<PortfolioButton> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
+          duration: AppDurations.fast,
           curve: Curves.easeOut,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.pageMobile,
+            vertical: 14,
+          ),
           decoration: BoxDecoration(
             color: widget.primary
                 ? (_hovering
@@ -44,7 +50,7 @@ class _PortfolioButtonState extends State<PortfolioButton> {
                 : (_hovering
                       ? AppColors.surfaceMuted
                       : AppColors.surface),
-            borderRadius: BorderRadius.circular(999),
+            borderRadius: BorderRadius.circular(AppRadius.pill),
             border: Border.all(
               color: widget.primary
                   ? Colors.transparent
@@ -63,7 +69,7 @@ class _PortfolioButtonState extends State<PortfolioButton> {
                 ),
               ),
               if (widget.icon != null) ...[
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 Icon(widget.icon, size: 18, color: foreground),
               ],
             ],

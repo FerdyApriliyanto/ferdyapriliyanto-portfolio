@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 import '../shared/portfolio_button.dart';
 import 'hero_badges.dart';
@@ -61,7 +62,7 @@ class HeroDesktop extends StatelessWidget {
                   letterSpacing: -2.6,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               Text.rich(
                 TextSpan(
                   children: [
@@ -81,7 +82,7 @@ class HeroDesktop extends StatelessWidget {
                   letterSpacing: -1.2,
                 ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: AppSpacing.lg),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 700),
                 child: Text(
@@ -112,7 +113,7 @@ class HeroDesktop extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: 28),
+        const SizedBox(width: AppSpacing.xxl),
         Expanded(flex: 4, child: HeroProfilePanel(summary: summary)),
       ],
     );
@@ -167,7 +168,7 @@ class HeroMobile extends StatelessWidget {
             letterSpacing: -1.4,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.md),
         Text.rich(
           TextSpan(
             children: [
@@ -187,7 +188,7 @@ class HeroMobile extends StatelessWidget {
             letterSpacing: -1.0,
           ),
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: AppSpacing.lg),
         Text(
           headline,
           style: textTheme.bodyLarge?.copyWith(
@@ -195,7 +196,7 @@ class HeroMobile extends StatelessWidget {
             height: 1.8,
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: AppSpacing.xl),
         Wrap(
           spacing: 14,
           runSpacing: 14,
@@ -212,7 +213,7 @@ class HeroMobile extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: AppSpacing.xl),
         HeroProfilePanel(summary: summary),
       ],
     );

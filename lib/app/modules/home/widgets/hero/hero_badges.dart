@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class AvatarBadge extends StatelessWidget {
   const AvatarBadge({super.key});
@@ -13,7 +15,7 @@ class AvatarBadge extends StatelessWidget {
       padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         color: AppColors.pageGradientTop,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(AppRadius.large),
         border: Border.all(color: AppColors.borderWarm, width: 1.6),
         boxShadow: const [
           BoxShadow(
@@ -23,56 +25,53 @@ class AvatarBadge extends StatelessWidget {
           ),
         ],
       ),
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(22)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(22),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Transform.scale(
-                scale: 1.28,
-                alignment: const Alignment(0, -0.08),
-                child: ColorFiltered(
-                  colorFilter: const ColorFilter.matrix([
-                    0.55,
-                    0.55,
-                    0.55,
-                    0,
-                    -18,
-                    0.55,
-                    0.55,
-                    0.55,
-                    0,
-                    -18,
-                    0.55,
-                    0.55,
-                    0.55,
-                    0,
-                    -18,
-                    0,
-                    0,
-                    0,
-                    0.98,
-                    0,
-                  ]),
-                  child: Image.asset(
-                    'assets/profile/profile.jpeg',
-                    fit: BoxFit.cover,
-                    alignment: const Alignment(0, -0.05),
-                  ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Transform.scale(
+              scale: 1.28,
+              alignment: const Alignment(0, -0.08),
+              child: ColorFiltered(
+                colorFilter: const ColorFilter.matrix([
+                  0.55,
+                  0.55,
+                  0.55,
+                  0,
+                  -18,
+                  0.55,
+                  0.55,
+                  0.55,
+                  0,
+                  -18,
+                  0.55,
+                  0.55,
+                  0.55,
+                  0,
+                  -18,
+                  0,
+                  0,
+                  0,
+                  0.98,
+                  0,
+                ]),
+                child: Image.asset(
+                  'assets/profile/profile.jpeg',
+                  fit: BoxFit.cover,
+                  alignment: const Alignment(0, -0.05),
                 ),
               ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: AppGradients.avatarOverlay,
-                ),
+            ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: AppGradients.avatarOverlay,
               ),
-              const DecoratedBox(
-                decoration: BoxDecoration(color: AppColors.overlaySoft),
-              ),
-            ],
-          ),
+            ),
+            const DecoratedBox(
+              decoration: BoxDecoration(color: AppColors.overlaySoft),
+            ),
+          ],
         ),
       ),
     );
@@ -91,14 +90,14 @@ class InfoPill extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
         border: Border.all(color: AppColors.borderWarm),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 16, color: AppColors.textMuted),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppSpacing.sm),
           Text(
             label,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -121,7 +120,7 @@ class AvailabilityPill extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
         border: Border.all(color: AppColors.borderWarm),
       ),
       child: Row(

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
 import 'package:personal_portfolio/app/theme/app_gradients.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 import '../../controllers/home_controller.dart';
 
@@ -31,28 +34,32 @@ class _TopNavigationState extends State<TopNavigation> {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        isMobile ? 20 : 36,
-        isMobile ? 12 : 24,
-        isMobile ? 20 : 36,
-        8,
+        isMobile ? AppSpacing.pageMobile : 36,
+        isMobile ? AppSpacing.md : AppSpacing.xl,
+        isMobile ? AppSpacing.pageMobile : 36,
+        AppSpacing.sm,
       ),
       child: Obx(
         () {
           final isScrolled = controller.isScrolled.value;
           final shouldUseGlass = !isMobile && isScrolled;
-          final borderRadius = BorderRadius.circular(isScrolled ? 26 : 20);
-          final shellDuration = Duration(milliseconds: isMobile ? 260 : 420);
+          final borderRadius = BorderRadius.circular(
+            isScrolled ? 26 : AppSpacing.pageMobile,
+          );
+          final shellDuration = isMobile
+              ? const Duration(milliseconds: 260)
+              : AppDurations.medium;
 
           return AnimatedContainer(
             duration: shellDuration,
             curve: Curves.easeOutCubic,
             padding: EdgeInsets.symmetric(
               horizontal: isScrolled
-                  ? (isMobile ? 14 : 18)
-                  : (isMobile ? 4 : 2),
+                  ? (isMobile ? 14 : AppSpacing.lg)
+                  : (isMobile ? AppSpacing.xs : 2),
               vertical: isScrolled
-                  ? (isMobile ? 12 : 0)
-                  : 4,
+                  ? (isMobile ? AppSpacing.md : 0)
+                  : AppSpacing.xs,
             ),
             decoration: BoxDecoration(
               borderRadius: borderRadius,
@@ -78,27 +85,31 @@ class _TopNavigationState extends State<TopNavigation> {
                   curve: Curves.easeOutCubic,
                   padding: EdgeInsets.symmetric(
                     horizontal: isScrolled
-                        ? (isMobile ? 14 : 18)
-                        : (isMobile ? 8 : 0),
+                        ? (isMobile ? 14 : AppSpacing.lg)
+                        : (isMobile ? AppSpacing.sm : 0),
                     vertical: isScrolled
-                        ? (isMobile ? 12 : 14)
-                        : 8,
+                        ? (isMobile ? AppSpacing.md : 14)
+                        : AppSpacing.sm,
                   ),
                   decoration: BoxDecoration(
                     color: shouldUseGlass
                         ? AppColors.surface.withValues(alpha: 0.66)
-                        : AppColors.surface,
+                        : (isMobile
+                              ? AppColors.surface
+                              : AppColors.surfaceTransparent),
                     borderRadius: borderRadius,
                     border: Border.all(
                       color: shouldUseGlass
                           ? AppColors.border.withValues(alpha: 0.75)
-                          : AppColors.borderMuted,
+                          : (isMobile
+                                ? AppColors.borderMuted
+                                : AppColors.borderTransparent),
                     ),
                   ),
                   child: Row(
                     children: [
                       AnimatedContainer(
-                        duration: const Duration(milliseconds: 420),
+                        duration: AppDurations.medium,
                         curve: Curves.easeOutCubic,
                         height: isMobile
                             ? (isScrolled ? 48 : 54)
@@ -109,7 +120,7 @@ class _TopNavigationState extends State<TopNavigation> {
                         decoration: BoxDecoration(
                           gradient: AppGradients.brandDark,
                           borderRadius: BorderRadius.circular(
-                            isScrolled ? 18 : 20,
+                            isScrolled ? AppSpacing.lg : AppSpacing.pageMobile,
                           ),
                         ),
                         alignment: Alignment.center,
@@ -189,16 +200,7 @@ class _TopNavigationState extends State<TopNavigation> {
                             ),
                             decoration: BoxDecoration(
                               color: AppColors.brandDark,
-                              borderRadius: BorderRadius.circular(999),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: isScrolled
-                                      ? AppColors.shadowSoft.withValues(alpha: 0.12)
-                                      : AppColors.shadowSoft.withValues(alpha: 0.16),
-                                  blurRadius: isScrolled ? 10 : 16,
-                                  offset: const Offset(0, 8),
-                                ),
-                              ],
+                              borderRadius: BorderRadius.circular(AppRadius.pill),
                             ),
                             child: Text(
                               'Let\'s talk',
@@ -222,7 +224,7 @@ class _TopNavigationState extends State<TopNavigation> {
                                   ? AppGradients.mobileMenuButton
                                   : AppGradients.mobileMenuButtonSoft,
                               borderRadius: BorderRadius.circular(
-                                isScrolled ? 18 : 20,
+                                isScrolled ? AppSpacing.lg : AppSpacing.pageMobile,
                               ),
                               border: Border.all(
                                 color: controller.isMenuOpen.value
@@ -261,7 +263,7 @@ class _HamburgerGlyph extends StatelessWidget {
       width: 24,
       height: 24,
       child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 220),
+        duration: AppDurations.fast,
         transitionBuilder: (child, animation) => FadeTransition(
           opacity: animation,
           child: ScaleTransition(scale: animation, child: child),
@@ -304,7 +306,7 @@ class _HamburgerLine extends StatelessWidget {
         height: 2.4,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderRadius.circular(AppRadius.pill),
         ),
       ),
     );
@@ -338,7 +340,7 @@ class _NavButtonState extends State<_NavButton> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 220),
+          duration: AppDurations.fast,
           curve: Curves.easeOutCubic,
           margin: const EdgeInsets.symmetric(horizontal: 6),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -346,7 +348,7 @@ class _NavButtonState extends State<_NavButton> {
             color: widget.active
                 ? AppColors.pillSurface
                 : AppColors.pillSurfaceTransparent,
-            borderRadius: BorderRadius.circular(999),
+            borderRadius: BorderRadius.circular(AppRadius.pill),
             border: Border.all(
               color: widget.active
                   ? AppColors.borderAccent

@@ -4,6 +4,8 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:personal_portfolio/app/models/contact_link.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 import '../../widgets/shared/portfolio_button.dart';
 import '../../widgets/shared/section_title.dart';
@@ -22,7 +24,7 @@ class ContactSection extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints(maxWidth: 1200),
       margin: const EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(isMobile ? 24 : 32),
+      padding: EdgeInsets.all(isMobile ? AppSpacing.xl : 32),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(32),
@@ -44,10 +46,10 @@ class ContactSection extends StatelessWidget {
             description:
                 'Reach out for mobile development roles, freelance collaboration, or product teams needing Flutter implementation support.',
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.xl),
           Wrap(
-            spacing: 18,
-            runSpacing: 18,
+            spacing: AppSpacing.lg,
+            runSpacing: AppSpacing.lg,
             children: contacts
                 .map(
                   (contact) =>
@@ -55,7 +57,7 @@ class ContactSection extends StatelessWidget {
                 )
                 .toList(),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.xl),
           PortfolioButton(
             label: 'Start a Conversation',
             primary: true,
@@ -81,10 +83,10 @@ class _ContactCard extends StatelessWidget {
 
     return Container(
       width: isMobile ? double.infinity : 340,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(AppSpacing.pageMobile),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(AppRadius.medium),
         border: Border.all(color: AppColors.borderPanel),
       ),
       child: Column(

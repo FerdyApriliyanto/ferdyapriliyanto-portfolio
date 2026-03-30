@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/modules/home/widgets/hero/hero_content.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_durations.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
 import 'package:personal_portfolio/app/theme/app_shadows.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class HeroSection extends StatefulWidget {
   const HeroSection({
@@ -31,7 +34,7 @@ class _HeroSectionState extends State<HeroSection>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 900),
+    duration: AppDurations.slow,
   )..forward();
 
   late final Animation<double> _fade = CurvedAnimation(
@@ -53,16 +56,16 @@ class _HeroSectionState extends State<HeroSection>
       opacity: _fade,
       child: TweenAnimationBuilder<double>(
         tween: Tween(begin: 24, end: 0),
-        duration: const Duration(milliseconds: 900),
+        duration: AppDurations.slow,
         curve: Curves.easeOutCubic,
         builder: (context, offset, child) =>
             Transform.translate(offset: Offset(0, offset), child: child),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1200),
-          padding: EdgeInsets.all(isMobile ? 24 : 36),
+          padding: EdgeInsets.all(isMobile ? AppSpacing.xl : 36),
           decoration: BoxDecoration(
             color: AppColors.surface,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(AppRadius.panel),
             border: Border.all(color: AppColors.border),
             boxShadow: isMobile ? null : AppShadows.softPanel,
           ),

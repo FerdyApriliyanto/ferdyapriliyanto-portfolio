@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class HeroProfilePanel extends StatelessWidget {
   const HeroProfilePanel({required this.summary, super.key});
@@ -13,10 +15,10 @@ class HeroProfilePanel extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(isMobile ? 18 : 24),
+      padding: EdgeInsets.all(isMobile ? AppSpacing.lg : AppSpacing.xl),
       decoration: BoxDecoration(
         color: AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(AppRadius.large),
         border: Border.all(color: AppColors.borderSoft),
       ),
       child: Column(
@@ -30,7 +32,7 @@ class HeroProfilePanel extends StatelessWidget {
               letterSpacing: 0.3,
             ),
           ),
-          SizedBox(height: isMobile ? 12 : 16),
+          SizedBox(height: isMobile ? AppSpacing.md : 16),
           Text(
             summary,
             style: (isMobile ? textTheme.titleMedium : textTheme.titleLarge)
@@ -42,15 +44,15 @@ class HeroProfilePanel extends StatelessWidget {
               letterSpacing: isMobile ? -0.25 : -0.5,
             ),
           ),
-          SizedBox(height: isMobile ? 18 : 22),
+          SizedBox(height: isMobile ? AppSpacing.lg : 22),
           _MetricRow(label: 'Experience', value: '3+ years', compact: isMobile),
-          SizedBox(height: isMobile ? 12 : 14),
+          SizedBox(height: isMobile ? AppSpacing.md : 14),
           _MetricRow(
             label: 'Core stack',
             value: 'Flutter, GetX, Firebase',
             compact: isMobile,
           ),
-          SizedBox(height: isMobile ? 12 : 14),
+          SizedBox(height: isMobile ? AppSpacing.md : 14),
           _MetricRow(
             label: 'Focus',
             value: 'Production mobile apps',
@@ -92,7 +94,7 @@ class _MetricRow extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Text(
               value,

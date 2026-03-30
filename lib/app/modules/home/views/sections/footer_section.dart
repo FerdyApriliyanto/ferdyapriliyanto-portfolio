@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:personal_portfolio/app/modules/home/controllers/home_controller.dart';
 import 'package:personal_portfolio/app/theme/app_colors.dart';
+import 'package:personal_portfolio/app/theme/app_radius.dart';
+import 'package:personal_portfolio/app/theme/app_spacing.dart';
 
 class FooterSection extends StatelessWidget {
   FooterSection({super.key});
@@ -13,11 +15,11 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(24),
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+      margin: const EdgeInsets.all(AppSpacing.xl),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: AppSpacing.xl),
       decoration: BoxDecoration(
         color: AppColors.surfaceMuted,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(AppRadius.medium),
       ),
       child: Column(
         children: [
@@ -41,7 +43,7 @@ class FooterSection extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.pageMobile),
           Text(
             '${String.fromCharCode(169)} 2026 Ferdy Apriliyanto. All rights reserved.',
             textAlign: TextAlign.center,
@@ -54,7 +56,7 @@ class FooterSection extends StatelessWidget {
 
   Widget _buildIcon(FaIconData icon, String url) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
       child: InkWell(
         borderRadius: BorderRadius.circular(50),
         onTap: () => controller.openUrl(url),
